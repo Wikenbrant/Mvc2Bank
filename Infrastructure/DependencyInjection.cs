@@ -2,6 +2,7 @@
 using Infrastructure.Identity;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,16 +30,13 @@ namespace Infrastructure
             //            b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             //}
             services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                var x = configuration.GetConnectionString("Default");
                 options.UseSqlServer(
                     configuration.GetConnectionString("Default"),
-                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
-            });
+                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
+            );
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-            services.AddDefaultIdentity<ApplicationUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
             //services.AddIdentityServer()
             //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
@@ -47,6 +45,7 @@ namespace Infrastructure
 
 
             services.AddAuthentication().AddJwtBearer();
+            services.AddAuthorization();
 
             return services;
         }
