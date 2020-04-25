@@ -1,0 +1,42 @@
+﻿@model Application.Statistics.Query.GetNumberOfAccountsAndTotalSumForEachCountry.NumberOfAccountsAndTotalSumForEachCountryViewModel
+
+@{
+    Layout = null;
+}
+
+<div id="accordionCountries">
+    @foreach (var country in Model.Countries)
+    {
+        <div class="card">
+            <div class="card-header" id="@($"HeaderCountry{country.Country}")">
+                <h5 class="mb-0">
+                    <a class="btn btn-link httpGet"
+                       asp-controller="Home"
+                       asp-action="GetTop10InCountry"
+                       asp-route-country="@country.Country"
+                       data-toggle="collapse"
+                       data-target="#@($"collapseCountry{country.Country}")"
+                       aria-expanded="true"
+                       aria-controls="@($"collapseCountry{country.Country}")"
+                       data-ajax="true"
+                       data-ajax-method="GET"
+                       data-ajax-mode="replace"
+                       data-ajax-update="#@($"loaderCountry{country.Country}")">
+                        <div>
+                            @country.Country
+                        </div>
+                    </a>
+                </h5>
+            </div>
+
+            <div id="@($"collapseCountry{country.Country}")" class="collapse" aria-labelledby="@($"HeaderCountry{country.Country}")" data-parent="#accordionCountries">
+                <div class="card-body">
+                    <div id="@($"loaderCountry{country.Country}")">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

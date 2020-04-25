@@ -30,14 +30,25 @@ namespace Web.Controllers
         [ResponseCache(Duration = 30)]
         public async Task<IActionResult> Index()
         {
-            var x = await _mediator.Send(new GetNumberOfAccountsAndTotalSumForEachCountryQuery());
-            return View();
+            var model = new IndexViewModel
+            {
+                Countries = await _mediator.Send(new GetNumberOfAccountsAndTotalSumForEachCountryQuery()).ConfigureAwait(false)
+            }; return View(model);
         }
 
-        public IActionResult Top10CustomersByCountry()
+        public async Task<IActionResult> GetTop10InCountry([FromQuery]GetTop10CustomersByCountryQuery query)
         {
-            return View();
+            var model = await _mediator.Send(query).ConfigureAwait(false);
+            return View("_GetTop10InCountry",model);
         }
+
+        public async Task<IActionResult> StatisticsCountries()
+        {
+            var model = await _mediator.Send(new GetNumberOfAccountsAndTotalSumForEachCountryQuery()).ConfigureAwait(false);
+            return View("_StatisticsCountries",model);
+        }
+
+
 
         public IActionResult Privacy()
         {

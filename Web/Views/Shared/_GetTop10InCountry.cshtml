@@ -1,0 +1,42 @@
+﻿@model Application.Customers.Queries.GetTop10CustomersByCountry.Top10CustomersByCountryViewModel
+
+@{
+    Layout = null;
+}
+
+<div id="accordionCustomer">
+    @foreach (var customer in Model.Customers)
+    {
+        <div class="card">
+            <div class="card-header" id="@($"HeaderCustomer{customer.CustomerId}")">
+                <h5 class="mb-0">
+                    <a class="btn btn-link  httpGet"
+                       asp-controller="Home"
+                       asp-action=""
+                       data-toggle="collapse"
+                       data-target="#@($"collapseCustomer{customer.CustomerId}")"
+                       aria-expanded="true"
+                       aria-controls="@($"collapseCustomer{customer.CustomerId}")"
+                       data-ajax="true"
+                       data-ajax-method="GET"
+                       data-ajax-mode="replace"
+                       data-ajax-update="#M@($"loaderCustomer{customer.CustomerId}")">
+                        @customer.Givenname @customer.Surname
+                    </a>
+                </h5>
+            </div>
+
+            <div id="@($"collapseCustomer{customer.CustomerId}")" 
+                 class="collapse" 
+                 aria-labelledby="@($"HeaderCustomer{customer.CustomerId}")" 
+                 data-parent="#accordionCustomer">
+                <div class="card-body">
+                    <div id="@($"loaderCustomer{customer.CustomerId}")">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    
+</div>

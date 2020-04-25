@@ -1,8 +1,8 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IndexViewModel
+
 
 <h1 class="mt-4">Dashboard</h1>
+<partial name="_StatisticsCountries" model="@Model.Countries"/>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Dashboard</li>
 </ol>
