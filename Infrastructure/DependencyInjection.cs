@@ -36,7 +36,9 @@ namespace Infrastructure
             );
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
-            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             //services.AddIdentityServer()
             //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 

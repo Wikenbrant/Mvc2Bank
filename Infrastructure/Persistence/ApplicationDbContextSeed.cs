@@ -20,7 +20,7 @@ namespace Infrastructure.Persistence
         }
         public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager)
         {
-            var defaultUser = new ApplicationUser { UserName = "admin", Email = "admin@admin.se" };
+            var defaultUser = new ApplicationUser { UserName = "Admin", Email = "admin@admin.se" };
 
             if (!userManager.Users.Any(u => u.UserName == defaultUser.UserName))
             {

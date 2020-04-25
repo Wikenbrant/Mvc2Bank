@@ -19,8 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Account\Commands\" />
-    <Folder Include="Account\Queries\" />
+    <Folder Include="Accounts\Commands\" />
     <Folder Include="Card\Commands\" />
     <Folder Include="Card\Queries\" />
     <Folder Include="Customer\Commands\" />
