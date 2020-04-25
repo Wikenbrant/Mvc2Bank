@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Infrastructure.Identity;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
@@ -50,8 +51,8 @@ namespace Web
                 var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-                await ApplicationDbContextSeed.SeedDefaultRolesAsync(roleManager).ConfigureAwait(false);
-                await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager).ConfigureAwait(false);
+                await IApplicationDbContextSeed.SeedDefaultRolesAsync(roleManager).ConfigureAwait(false);
+                await IApplicationDbContextSeed.SeedDefaultUserAsync(userManager).ConfigureAwait(false);
             }
             catch (Exception e)
             {

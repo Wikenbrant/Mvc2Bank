@@ -16,7 +16,7 @@ namespace Infrastructure
         {
             //if (configuration.GetValue<bool>("UseInMemoryDatabase"))
             //{
-            //    services.AddDbContext<ApplicationDbContext>(options =>
+            //    services.AddDbContext<IApplicationDbContext>(options =>
             //    {
 
             //        options.UseInMemoryDatabase("Default");
@@ -24,10 +24,10 @@ namespace Infrastructure
             //}
             //else
             //{
-            //    services.AddDbContext<ApplicationDbContext>(options =>
+            //    services.AddDbContext<IApplicationDbContext>(options =>
             //        options.UseSqlServer(
             //            configuration.GetConnectionString("Default"),
-            //            b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+            //            b => b.MigrationsAssembly(typeof(IApplicationDbContext).Assembly.FullName)));
             //}
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -40,7 +40,7 @@ namespace Infrastructure
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             //services.AddIdentityServer()
-            //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+            //    .AddApiAuthorization<ApplicationUser, IApplicationDbContext>();
 
 
             services.AddTransient<IIdentityService, IdentityService>();

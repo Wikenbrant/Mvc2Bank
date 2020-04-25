@@ -1,5 +1,6 @@
 using Application;
 using Application.Common.Interfaces;
+using FluentValidation.AspNetCore;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +34,16 @@ namespace Web
 
             services.AddHttpContextAccessor();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+                {
+                    options.CacheProfiles.Add("Country60",new CacheProfile
+                    {
+                        Duration = 60,
+                        VaryByQueryKeys = new[] {"Country"}
+                    });
+                })
+                .AddFluentValidation();
+            services.AddResponseCaching();
             services.AddRazorPages();
         }
 
@@ -55,6 +65,8 @@ namespace Web
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseResponseCaching();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -19,19 +19,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Accounts\Commands\" />
-    <Folder Include="Card\Commands\" />
-    <Folder Include="Card\Queries\" />
-    <Folder Include="Customer\Commands\" />
-    <Folder Include="Customer\Queries\" />
-    <Folder Include="Disposition\Commands\" />
-    <Folder Include="Disposition\Queries\" />
-    <Folder Include="Loan\Commands\" />
-    <Folder Include="Loan\Queries\" />
-    <Folder Include="PermenentOrder\Commands\" />
-    <Folder Include="PermenentOrder\Queries\" />
-    <Folder Include="Transaction\Commands\" />
-    <Folder Include="Transaction\Queries\" />
+    <Folder Include="Cards\Commands\" />
+    <Folder Include="Cards\Queries\" />
+    <Folder Include="Customers\Commands\" />
+    <Folder Include="Dispositions\Commands\" />
+    <Folder Include="Dispositions\Queries\" />
+    <Folder Include="Loans\Commands\" />
+    <Folder Include="Loans\Queries\" />
+    <Folder Include="PermenentOrders\Commands\" />
+    <Folder Include="PermenentOrders\Queries\" />
   </ItemGroup>
 
 </Project>

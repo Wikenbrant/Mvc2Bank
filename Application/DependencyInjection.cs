@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using Application.Common.Interfaces;
+using Application.Common.Services;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
@@ -16,6 +18,8 @@ namespace Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
+
+            services.AddTransient<ITransactionService, TransactionService>();
 
             return services;
         }
