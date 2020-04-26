@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Azure.Search;
 
 namespace Domain.Entities
 {
