@@ -10,9 +10,10 @@
         <div class="card">
             <div class="card-header" id="@($"HeaderCustomer{customer.CustomerId}")">
                 <h5 class="mb-0">
-                    <a class="btn btn-link  httpGet"
-                       asp-controller="Home"
-                       asp-action=""
+                    <a class="btn btn-link httpGet"
+                       asp-controller="Customers"
+                       asp-action="Index"
+                       asp-route-id="@customer.CustomerId"
                        data-toggle="collapse"
                        data-target="#@($"collapseCustomer{customer.CustomerId}")"
                        aria-expanded="true"
@@ -20,7 +21,7 @@
                        data-ajax="true"
                        data-ajax-method="GET"
                        data-ajax-mode="replace"
-                       data-ajax-update="#M@($"loaderCustomer{customer.CustomerId}")">
+                       data-ajax-update="#@($"loaderCustomer{customer.CustomerId}")">
                         @customer.Givenname @customer.Surname
                     </a>
                 </h5>

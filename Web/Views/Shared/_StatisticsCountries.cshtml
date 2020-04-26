@@ -22,14 +22,15 @@
                        data-ajax-method="GET"
                        data-ajax-mode="replace"
                        data-ajax-update="#@($"loaderCountry{country.Country}")">
-                        <div>
-                            @country.Country
-                        </div>
+                        @country.Country
                     </a>
                 </h5>
             </div>
 
-            <div id="@($"collapseCountry{country.Country}")" class="collapse" aria-labelledby="@($"HeaderCountry{country.Country}")" data-parent="#accordionCountries">
+            <div id="@($"collapseCountry{country.Country}")" 
+                 class="collapse" 
+                 aria-labelledby="@($"HeaderCountry{country.Country}")" 
+                 data-parent="#accordionCountries">
                 <div class="card-body">
                     <div id="@($"loaderCountry{country.Country}")">
                         <i class="fas fa-circle-notch fa-spin"></i>

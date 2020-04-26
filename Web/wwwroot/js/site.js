@@ -18,7 +18,7 @@ $(function () {
     }
 
     $(document).ready(function () {
-        $('.httpGet').on('click',
+        $(document).on('click', '.httpGet',
             function () {
 
                 AjaxGet(this.href, this.dataset.ajaxUpdate);

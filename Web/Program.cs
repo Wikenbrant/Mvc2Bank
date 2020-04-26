@@ -51,8 +51,8 @@ namespace Web
                 var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-                await IApplicationDbContextSeed.SeedDefaultRolesAsync(roleManager).ConfigureAwait(false);
-                await IApplicationDbContextSeed.SeedDefaultUserAsync(userManager).ConfigureAwait(false);
+                await ApplicationDbContextSeed.SeedDefaultRolesAsync(roleManager).ConfigureAwait(false);
+                await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager).ConfigureAwait(false);
             }
             catch (Exception e)
             {

@@ -36,6 +36,7 @@ namespace Web.Controllers
             }; return View(model);
         }
 
+        [ResponseCache(CacheProfileName = "Country60")]
         public async Task<IActionResult> GetTop10InCountry([FromQuery]GetTop10CustomersByCountryQuery query)
         {
             var model = await _mediator.Send(query).ConfigureAwait(false);

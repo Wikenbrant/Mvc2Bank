@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Persistence
 {
-    public class IApplicationDbContextSeed
+    public class ApplicationDbContextSeed
     {
         public static async Task SeedDefaultRolesAsync(RoleManager<IdentityRole> roleManager)
         {
