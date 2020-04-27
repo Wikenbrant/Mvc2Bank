@@ -49,6 +49,7 @@ namespace Infrastructure.Search
                 IncludeTotalResultCount = true,
             };
 
+
             // For efficiency, the search call should be asynchronous, so use SearchAsync rather than Search.
             data.ResultList = await _indexClient.Documents.SearchAsync<CustomerSearch>(searchText, parameters).ConfigureAwait(false);
 

@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Transactions.Queries.GetTransactionsByAccountIdPagination
 {
-    public class GetTransactionsPaginationQuery : IRequest<TransactionsPaginationViewModel>
+    public class GetTransactionsByAccountIdPaginationQuery : IRequest<TransactionsPaginationViewModel>
     {
         public int Id { get; set; }
         public int CurrentPage { get; set; } = 1;
         public int PageSize { get; set; } = 20;
     }
 
-    public class GetAccountsPaginationQueryHandler : IRequestHandler<GetTransactionsPaginationQuery, TransactionsPaginationViewModel>
+    public class GetAccountsPaginationQueryHandler : IRequestHandler<GetTransactionsByAccountIdPaginationQuery, TransactionsPaginationViewModel>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -30,7 +30,7 @@ namespace Application.Transactions.Queries.GetTransactionsByAccountIdPagination
             _mapper = mapper;
         }
 
-        public async Task<TransactionsPaginationViewModel> Handle(GetTransactionsPaginationQuery request, CancellationToken cancellationToken)
+        public async Task<TransactionsPaginationViewModel> Handle(GetTransactionsByAccountIdPaginationQuery request, CancellationToken cancellationToken)
         {
             var pageSize = request.PageSize;
             var skip = (request.CurrentPage - 1) * pageSize;

@@ -1,0 +1,35 @@
+﻿@model Application.Statistics.Query.GetNumberOfAccountsCustomerAndTotalBalance.NumberOfAccountsCustomerAndTotalBalanceViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-4">
+        <partial name="Components/ApplicationStatistics/_StatisticsCard" model="@(new StatisticsCardViewModel
+                                                                            {
+                                                                                DisplayTitle = "Customers",
+                                                                                DisplayText = $"{Model.NumberOfCustomers} st",
+                                                                                Color = "orange",
+                                                                                FaIcon = "fas fa-user-friends"
+                                                                            })" />
+    </div>
+    <div class="col-sm-12 col-md-4">
+        <partial name="Components/ApplicationStatistics/_StatisticsCard" model="@(new StatisticsCardViewModel
+                                                                                {
+                                                                                    DisplayTitle = "Accounts",
+                                                                                    DisplayText = $"{Model.NumberOfAccounts} st",
+                                                                                    Color = "blue",
+                                                                                    FaIcon = "fas fa-credit-card"
+                                                                                })" />
+    </div>
+    <div class="col-sm-12 col-md-4">
+        <partial name="Components/ApplicationStatistics/_StatisticsCard" model="@(new StatisticsCardViewModel
+                                                                                {
+                                                                                    DisplayTitle = "Total",
+                                                                                    DisplayText = Model.TotalBalance.ToString("C"),
+                                                                                    Color = "yellow",
+                                                                                    FaIcon = "fas fa-money-bill-wave"
+                                                                                })" />
+    </div>
+</div>

@@ -1,1 +1,6 @@
-﻿
+﻿.tableDarkRowLink:hover {
+    color: #fff;
+    background-color: #b9bbbe;
+    background-color: rgba(185,187,190,0.05);
+    cursor: pointer;
+}

@@ -4,8 +4,7 @@
 // Write your JavaScript code.
 
 $(function () {
-    function AjaxGet(url, replaceId) {
-        debugger;
+    function ajaxGet(url, replaceId) {
         $.ajax(
             {
                 type: "Get",
@@ -17,13 +16,38 @@ $(function () {
             });
     }
 
+    function ajaxAppend(url, appendId, removeLoadMoreId) {
+        $(removeLoadMoreId).remove();
+        $.ajax(
+            {
+                type: "Get",
+                url: url,
+                success: (response) => {
+                    $(appendId).append(response);
+                },
+                dataType: "html"
+            });
+    }
+
     $(document).ready(function () {
         $(document).on('click', '.httpGet',
             function () {
 
-                AjaxGet(this.href, this.dataset.ajaxUpdate);
-                debugger;
+                ajaxGet(this.href, this.dataset.ajaxUpdate);
                 // do something…
+            });
+    });
+
+    $(document).ready(function () {
+        $(document).on('click', '.append',
+            function () {
+                var url;
+                if (this.href) {
+                    url = this.href;
+                } else {
+                    url = this.dataset.ajaxUrl;
+                }
+                ajaxAppend(url, this.dataset.ajaxAppend, this.dataset.ajaxDelete);
             });
     });
 });

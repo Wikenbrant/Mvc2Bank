@@ -2,7 +2,8 @@
 
 
 <h1 class="mt-4">Dashboard</h1>
-<partial name="_StatisticsCountries" model="@Model.Countries"/>
+@await Component.InvokeAsync("ApplicationStatistics").ConfigureAwait(false)
+@await Component.InvokeAsync("StatisticsCountries").ConfigureAwait(false)
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Dashboard</li>
 </ol>

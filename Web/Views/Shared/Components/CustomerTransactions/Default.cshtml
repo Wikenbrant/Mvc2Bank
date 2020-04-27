@@ -1,0 +1,30 @@
+﻿@using System.Linq
+@model Application.Transactions.Queries.GetTransactionsPagination.TransactionsPaginationViewModel
+
+
+@foreach (var transaction in Model.Transactions)
+{
+    <tr>
+        <td class="text-center">Id: @transaction.TransactionId</td>
+        <td class="text-right">@transaction.Amount.ToString("C")</td>
+        <td class="text-right">@transaction.Balance.ToString("C")</td>
+    </tr>
+}
+
+@if (Model.PageCount >= Model.CurrentPage)
+{
+    <tr id="@($"loadMoreTransactions{Model.Transactions.FirstOrDefault()?.AccountId}")">
+        <td colspan="3">
+            <a class="alert-link append"
+               asp-controller="Transactions"
+               asp-action="GetTransactionsByAccountId"
+               asp-route-currentPage="@(Model.CurrentPage + 1)"
+               asp-route-id="@Model.Transactions.FirstOrDefault()?.AccountId"
+               data-ajax="true"
+               data-ajax-append="#@($"bodyAccount{Model.Transactions.FirstOrDefault()?.AccountId}")"
+               data-ajax-delete="#@($"loadMoreTransactions{Model.Transactions.FirstOrDefault()?.AccountId}")">
+                Load more
+            </a>
+        </td>
+    </tr>
+}

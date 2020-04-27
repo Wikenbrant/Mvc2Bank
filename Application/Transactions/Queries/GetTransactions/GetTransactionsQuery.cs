@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using AutoMapper;
@@ -10,6 +11,7 @@ namespace Application.Transactions.Queries.GetTransactions
 {
     public class GetTransactionsByAccountIdQuery : IRequest<TransactionsViewModel>
     {
+        public int Id { get; set; }
     }
 
     public class GetTransactionsQueryHandler : IRequestHandler<GetTransactionsByAccountIdQuery, TransactionsViewModel>
@@ -25,6 +27,7 @@ namespace Application.Transactions.Queries.GetTransactions
         public async Task<TransactionsViewModel> Handle(GetTransactionsByAccountIdQuery request, CancellationToken cancellationToken)=> new TransactionsViewModel
         {
             Transactions = await _context.Transactions
+                .Where(transaction => transaction.AccountId == request.Id)
                 .ProjectTo<TransactionsDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false)

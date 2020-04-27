@@ -37,16 +37,14 @@ namespace Web.Controllers
         }
 
         [ResponseCache(CacheProfileName = "Country60")]
-        public async Task<IActionResult> GetTop10InCountry([FromQuery]GetTop10CustomersByCountryQuery query)
+        public IActionResult GetTop10InCountry([FromQuery]GetTop10CustomersByCountryQuery query)
         {
-            var model = await _mediator.Send(query).ConfigureAwait(false);
-            return View("_GetTop10InCountry",model);
+            return ViewComponent(nameof(ViewComponents.GetTop10InCountry),new { query });
         }
 
-        public async Task<IActionResult> StatisticsCountries()
+        public IActionResult StatisticsCountries()
         {
-            var model = await _mediator.Send(new GetNumberOfAccountsAndTotalSumForEachCountryQuery()).ConfigureAwait(false);
-            return View("_StatisticsCountries",model);
+            return ViewComponent(nameof(ViewComponents.StatisticsCountries));
         }
 
 
