@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.Common.Models;
 using Domain.Entities;
+using Domain.Enums;
 using MediatR;
 
 namespace Application.Transactions.Commands.CreateTransaction
@@ -11,7 +12,7 @@ namespace Application.Transactions.Commands.CreateTransaction
     public class CreateTransactionCommand : IRequest<(Result result, int? transactionId)>
     {
         public int AccountId { get; set; }
-        public string Type { get; set; }
+        public TransactionType Type { get; set; }
         public string Operation { get; set; }
         public decimal Amount { get; set; }
         public string Symbol { get; set; }
@@ -29,19 +30,29 @@ namespace Application.Transactions.Commands.CreateTransaction
         }
         public async Task<(Result, int?)> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
         {
-            var (result, transaction) = await _transactionService.MakeTransactionAsync(
-                request.AccountId,
-                request.Amount, 
-                request.Operation, 
-                request.Type, 
-                request.Symbol, 
-                request.Bank, 
-                request.Account,
-                cancellationToken)
-                .ConfigureAwait(false);
+            var (result, transaction) = request.Type switch
+            {
+                TransactionType.Credit => await _transactionService.MakeInsertAsync(request.AccountId,
+                    request.Amount,
+                    request.Operation,
+                    request.Type.ToString(),
+                    request.Symbol,
+                    request.Bank,
+                    request.Account,
+                    cancellationToken).ConfigureAwait(false),
+                TransactionType.Debit => await _transactionService.MakeWithdrawalAsync(request.AccountId,
+                    request.Amount,
+                    request.Operation,
+                    request.Type.ToString(),
+                    request.Symbol,
+                    request.Bank,
+                    request.Account,
+                    cancellationToken).ConfigureAwait(false),
+                _ => throw new ArgumentNullException(nameof(request.Type))
+            };
 
 
-            return result.Succeeded ? ((Result, int?)) (result, transaction.TransactionId) : (result, null);
+            return (result, transaction?.TransactionId);
         }
     }
 }

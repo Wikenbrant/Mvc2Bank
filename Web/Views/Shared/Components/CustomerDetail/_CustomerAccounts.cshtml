@@ -1,0 +1,50 @@
+﻿@model Application.Customers.Queries.GetCustomer.CustomerViewModel
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th colspan="2">Account</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var account in Model.Customer.Accounts)
+            {
+                <tr data-toggle="collapse" data-target="#@($"accordionAccount{account.AccountId}")" class="tableDarkRowLink append"
+                    data-ajax="true"
+                    data-ajax-url="@Url.Action("GetTransactionsByAccountId","Transactions",new {currentPage=1,id=account.AccountId})"
+                    data-ajax-append="#@($"bodyAccount{account.AccountId}")"
+                    data-ajax-delete="#@($"loadMoreTransactions{account.AccountId}")">
+                    <td colspan="2">Id: @account.AccountId</td>
+                    <td>@account.Balance.ToString("C")</td>
+                    <td><a asp-controller="Transactions" asp-action="CreateTransaction" asp-route-id="@account.AccountId">Skapa transaction</a></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div id="@($"accordionAccount{account.AccountId}")" class="collapse">
+                            <table class="table table-dark table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Transaction</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="@($"bodyAccount{account.AccountId}")">
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    <div class="ml-auto">
+                        @($"Total: {Model.Customer.TotalBalance:C}")
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>

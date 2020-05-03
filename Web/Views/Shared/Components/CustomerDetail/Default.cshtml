@@ -15,7 +15,7 @@
                 <div class="tab-content pt-3">
                     <div class="tab-pane active">
                         <div class="row">
-                            <div class="col-sm-12 col-md-8">
+                            <div class="col-sm-12">
                                 <div class="row">
                                     <div class="col">
                                         <div class="row">
@@ -83,54 +83,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-4">
-                                <table class="table table-dark">
-                                    <thead>
-                                    <tr>
-                                        <th colspan="2">Account</th>
-                                        <th>Balance</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach (var account in Model.Customer.Accounts)
-                                    {
-                                        <tr data-toggle="collapse" data-target="#@($"accordionAccount{account.AccountId}")" class="tableDarkRowLink append" 
-                                            data-ajax="true"
-                                            data-ajax-url="@Url.Action("GetTransactionsByAccountId","Transactions",new {currentPage=1,id=account.AccountId})"
-                                            data-ajax-append="#@($"bodyAccount{account.AccountId}")"
-                                            data-ajax-delete="#@($"loadMoreTransactions{account.AccountId}")">
-                                            <td colspan="2">Id: @account.AccountId</td>
-                                            <td>@account.Balance.ToString("C")</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3">
-                                                <div id="@($"accordionAccount{account.AccountId}")" class="collapse">
-                                                    <table class="table table-dark table-hover">
-                                                        <thead>
-                                                        <tr >
-                                                            <th class="text-center">Transaction</th>
-                                                            <th class="text-right">Amount</th>
-                                                            <th class="text-right">Balance</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody id="@($"bodyAccount{account.AccountId}")">
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <td colspan="3">
-                                            <div class="ml-auto">
-                                                @($"Total: {Model.Customer.TotalBalance:C}")
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tfoot>
-                                </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <partial name="Components/CustomerDetail/_CustomerAccounts"/>
                             </div>
                         </div>
                     </div>

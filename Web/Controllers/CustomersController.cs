@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Customers.Queries.GetCustomer;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,10 +19,9 @@ namespace Web.Controllers
             _mediator = mediator;
         }
 
-        public async Task<IActionResult> Index([FromRoute] GetCustomerQuery query)
+        public  IActionResult Index([FromRoute] GetCustomerQuery query)
         {
-            var model = await _mediator.Send(query).ConfigureAwait(false);
-            return View("_Customer", model);
+            return ViewComponent( nameof(ViewComponents.CustomerDetail), new { query });
         }
     }
 }

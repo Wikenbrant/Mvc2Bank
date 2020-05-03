@@ -7,7 +7,10 @@ namespace Application.Common.Interfaces
 {
     public interface ITransactionService
     {
-        Task<(Result result, Transaction transaction)> MakeTransactionAsync(int accountId, decimal amount,
+        Task<(Result result, Transaction transaction)> MakeWithdrawalAsync(int accountId, decimal amount,
+            string operation, string type, string symbol, string bank, string toAccount, CancellationToken cancellationToken);
+
+        Task<(Result result, Transaction transaction)> MakeInsertAsync(int accountId, decimal amount,
             string operation, string type, string symbol, string bank, string toAccount, CancellationToken cancellationToken);
     }
 }

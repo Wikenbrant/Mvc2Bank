@@ -14,9 +14,7 @@ namespace Test.Application
     {
         public static IApplicationDbContext CreateContext()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
+            
 
             return new ApplicationDbContext(options);
         }

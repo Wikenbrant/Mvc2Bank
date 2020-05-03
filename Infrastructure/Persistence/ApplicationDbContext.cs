@@ -27,6 +27,7 @@ namespace Infrastructure.Persistence
         public virtual DbSet<PermanentOrder> PermanentOrder { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<MoneyLaundererReport> MoneyLaundererReports { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

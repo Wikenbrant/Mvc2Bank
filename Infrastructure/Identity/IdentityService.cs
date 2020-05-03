@@ -51,10 +51,20 @@ namespace Infrastructure.Identity
 
         public async Task<Result> SignInUserAsync(string email,string password, bool rememberMe )
         {
+           
+
             var user = await _userManager.FindByEmailAsync(email).ConfigureAwait(false);
+
+            if (user == null)
+            {
+                return Result.Failure(new []{"Invalid username"});
+            }
+
             var result = await _signInManager.PasswordSignInAsync(user, password, rememberMe, lockoutOnFailure: false)
                 .ConfigureAwait(false);
 
+
+            
             return result.ToApplicationResult();
         }
 

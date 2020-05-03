@@ -9,7 +9,9 @@ namespace Application.Transactions.Commands.CreateTransaction
         public CreateTransactionCommandValidator()
         {
             RuleFor(transaction => transaction.Type)
-                .IsEnumName(typeof(TransactionType));
+                .NotEmpty()
+                .NotNull()
+                .IsInEnum();
 
             RuleFor(transaction => transaction.Operation)
                 .Must(operation =>

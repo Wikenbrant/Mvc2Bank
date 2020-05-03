@@ -27,12 +27,13 @@ namespace Application.Customers.Queries.GetCustomer
         public string Emailaddress { get; set; }
 
 
-        public IEnumerable<Account> Accounts { get; set; } = new List<Account>();
+        public IEnumerable<Account> Accounts { get; set; } 
         public decimal TotalBalance { get; set; }
 
 
         public void Mapping(Profile profile)
         {
+            
             profile.CreateMap<Customer, CustomerDto>()
 
                 .ForMember(s=>s.TotalBalance,

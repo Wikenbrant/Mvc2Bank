@@ -14,26 +14,22 @@ namespace Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
-            //if (configuration.GetValue<bool>("UseInMemoryDatabase"))
-            //{
-            //    services.AddDbContext<IApplicationDbContext>(options =>
-            //    {
+            if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                {
 
-            //        options.UseInMemoryDatabase("Default");
-            //    });
-            //}
-            //else
-            //{
-            //    services.AddDbContext<IApplicationDbContext>(options =>
-            //        options.UseSqlServer(
-            //            configuration.GetConnectionString("Default"),
-            //            b => b.MigrationsAssembly(typeof(IApplicationDbContext).Assembly.FullName)));
-            //}
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    configuration.GetConnectionString("Default"),
-                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
-            );
+                    options.UseInMemoryDatabase("Default");
+                });
+            }
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(
+                        configuration.GetConnectionString("Default"),
+                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+            }
+
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             services.AddIdentity<ApplicationUser, IdentityRole>()

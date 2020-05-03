@@ -21,11 +21,23 @@ namespace Infrastructure.Persistence
         public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager)
         {
             var defaultUser = new ApplicationUser { UserName = "Admin", Email = "admin@admin.se" };
+            var stefanAdmin = new ApplicationUser { UserName = "StefanAdmin", Email = "stefan.holmberg@nackademin.se" };
+            var stefanCashier = new ApplicationUser { UserName = "StefanCashier", Email = "stefan.holmberg@nackademin.se" };
 
             if (!userManager.Users.Any(u => u.UserName == defaultUser.UserName))
             {
                 await userManager.CreateAsync(defaultUser, "Password123!").ConfigureAwait(false);
                 await userManager.AddToRoleAsync(defaultUser, "Admin").ConfigureAwait(false);
+            }
+            if (!userManager.Users.Any(u => u.UserName == stefanAdmin.UserName))
+            {
+                await userManager.CreateAsync(stefanAdmin, "Hejsan123#").ConfigureAwait(false);
+                await userManager.AddToRoleAsync(stefanAdmin, "Admin").ConfigureAwait(false);
+            }
+            if (!userManager.Users.Any(u => u.UserName == stefanCashier.UserName))
+            {
+                await userManager.CreateAsync(stefanCashier, "Hejsan123#").ConfigureAwait(false);
+                await userManager.AddToRoleAsync(stefanCashier, "Admin").ConfigureAwait(false);
             }
         }
     }

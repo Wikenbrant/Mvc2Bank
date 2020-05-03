@@ -45,6 +45,8 @@ namespace Web
                 .AddFluentValidation();
             services.AddResponseCaching();
             services.AddRazorPages();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +68,7 @@ namespace Web
 
             app.UseRouting();
             app.UseResponseCaching();
+
 
             app.UseAuthentication();
             app.UseAuthorization();

@@ -226,6 +226,29 @@ namespace Infrastructure.Persistence.Migrations
                     b.ToTable("Loans");
                 });
 
+            modelBuilder.Entity("Domain.Entities.MoneyLaundererReport", b =>
+                {
+                    b.Property<int>("MoneyLaundererId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("Succeeded")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.HasKey("MoneyLaundererId");
+
+                    b.ToTable("MoneyLaunderers");
+                });
+
             modelBuilder.Entity("Domain.Entities.PermanentOrder", b =>
                 {
                     b.Property<int>("OrderId")

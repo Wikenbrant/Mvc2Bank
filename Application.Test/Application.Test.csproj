@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.Development.json" />
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="Moq" Version="4.14.1" />
+    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Web\Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Loans\Commands\" />
+    <Folder Include="Loans\Queries\" />
+    <Folder Include="Accounts\Commands\" />
+    <Folder Include="Accounts\Queries\" />
+    <Folder Include="Common\" />
+    <Folder Include="Statistics\Commands\" />
+    <Folder Include="Statistics\Queries\" />
+    <Folder Include="PermenentOrders\Commands\" />
+    <Folder Include="PermenentOrders\Queries\" />
+    <Folder Include="Cards\Commands\" />
+    <Folder Include="Cards\Queries\" />
+    <Folder Include="Dispositions\Commands\" />
+    <Folder Include="Dispositions\Queries\" />
+    <Folder Include="Customers\Commands\" />
+    <Folder Include="Customers\Queries\" />
+  </ItemGroup>
+
+</Project>
