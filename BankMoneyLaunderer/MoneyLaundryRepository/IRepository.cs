@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 using BankMoneyLaunderer.Models;
 using Domain.Entities;
 
-namespace BankMoneyLaunderer.Repository
+namespace BankMoneyLaunderer.MoneyLaundryRepository
 {
     public interface IRepository : IAsyncDisposable,IDisposable
     {
         Task<IEnumerable<string>> GetCountriesAsync();
 
-        Task<IEnumerable<CustomerReport>> GetCustomersTransactionsOverXAmountAsync(string country, decimal amount);
+        Task<IEnumerable<CustomerReport>> GetCustomersTransactionsOverXAmountAsync(DateTime date, string country, decimal amount);
 
-        Task<IEnumerable<CustomerReport>> GetCustomersTransactionsOverXAmountLastXHoursAsync(string country,
-            decimal amount, int hours);
+        Task<IEnumerable<CustomerReport>> GetCustomersTransactionsOverXAmountLastXHoursAsync(
+            DateTime date, string country, decimal amount, int hours);
 
         Task<MoneyLaundererReport> GetNextDateAsync();
 

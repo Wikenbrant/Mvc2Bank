@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BankMoneyLaunderer.Models;
-using BankMoneyLaunderer.Repository;
 using BankMoneyLaunderer.Services;
 using Domain.Entities;
 using Domain.SearchModels;

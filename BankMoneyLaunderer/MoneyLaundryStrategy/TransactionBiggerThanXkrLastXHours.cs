@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BankMoneyLaunderer.Models;
-using BankMoneyLaunderer.Repository;
+using BankMoneyLaunderer.MoneyLaundryRepository;
 
 namespace BankMoneyLaunderer.MoneyLaundryStrategy
 {
@@ -19,7 +19,7 @@ namespace BankMoneyLaunderer.MoneyLaundryStrategy
         public string ReportName => $"Transaction Bigger Than {_config.MaximumSingelTransactionAmount}kr Last {_config.XHours}h";
 
         public Task<IEnumerable<CustomerReport>> GenerateReportAsync(DateTime date, string country) =>
-            _repository.GetCustomersTransactionsOverXAmountLastXHoursAsync(country, _config.MaximumXHoursTotalAmount,
+            _repository.GetCustomersTransactionsOverXAmountLastXHoursAsync(date,country, _config.MaximumXHoursTotalAmount,
                 _config.XHours);
     }
 }

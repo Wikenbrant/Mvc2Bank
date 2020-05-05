@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using BankMoneyLaunderer.Models;
 using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace BankMoneyLaunderer.Repository
+namespace BankMoneyLaunderer.MoneyLaundryRepository
 {
     public class Repository : IRepository
     {
@@ -28,9 +27,11 @@ namespace BankMoneyLaunderer.Repository
                 .ToListAsync()
                 .ConfigureAwait(false);
 
-        public async Task<IEnumerable<CustomerReport>> GetCustomersTransactionsOverXAmountAsync(string country, decimal amount) =>
+        public async Task<IEnumerable<CustomerReport>> GetCustomersTransactionsOverXAmountAsync(DateTime date,string country, decimal amount) =>
             await _context.Customers
-                .Where(c=>c.Country == country)
+                .Where(c=>c.Country == country && c.Dispositions
+                              .Any(d=>d.Account.Transactions
+                                  .Any(t => t.Amount > amount && t.Date == date)))
                 .Select(c=>new CustomerReport
                 {
                     CustomerId = c.CustomerId,
@@ -40,7 +41,7 @@ namespace BankMoneyLaunderer.Repository
                     {
                         AccountId = d.Account.AccountId,
                         SuspiciousTransactions = d.Account.Transactions
-                            .Where(t => t.Amount > amount)
+                            .Where(t => t.Amount > amount && t.Date == date)
                             .Select(t=>new TransactionData
                         {
                             TransactionId = t.TransactionId,
@@ -53,19 +54,25 @@ namespace BankMoneyLaunderer.Repository
                 .ConfigureAwait(false);
 
         public async Task<IEnumerable<CustomerReport>> GetCustomersTransactionsOverXAmountLastXHoursAsync(
-            string country, decimal amount, int hours) =>
-            await _context.Customers
-                .Where(c => c.Country == country)
-                .Select(c => new CustomerReport
-                {
-                    CustomerId = c.CustomerId,
-                    Surname = c.Surname,
-                    Givenname = c.Givenname,
-                    SuspiciousAccounts = c.Dispositions.Select(d => new AccountReport
+            DateTime date, string country, decimal amount, int hours) => await _context.Customers
+            .Where(c => c.Country == country && c.Dispositions
+                            .Any(d => d.Account.Transactions
+                                          .Where(t => t.Date <= date && t.Date >= date.AddHours(hours * -1))
+                                          .Sum(t => t.Amount) > amount))
+            .Select(c => new CustomerReport
+            {
+                CustomerId = c.CustomerId,
+                Surname = c.Surname,
+                Givenname = c.Givenname,
+                SuspiciousAccounts = c.Dispositions
+                    .Where(a => a.Account.Transactions
+                                    .Where(t => t.Date <= date && t.Date >= date.AddHours(hours * -1))
+                                    .Sum(t => t.Amount) > amount)
+                    .Select(d => new AccountReport
                     {
                         AccountId = d.Account.AccountId,
                         SuspiciousTransactions = d.Account.Transactions
-                            .Where(t => t.Amount > amount && t.Date > DateTime.Now.AddHours(hours * -1))
+                            .Where(t => t.Date <= date && t.Date >= date.AddHours(hours * -1))
                             .Select(t => new TransactionData
                             {
                                 TransactionId = t.TransactionId,
@@ -73,9 +80,10 @@ namespace BankMoneyLaunderer.Repository
                                 Amount = t.Amount
                             })
                     })
-                })
-                .ToListAsync()
-                .ConfigureAwait(false);
+            })
+            .ToListAsync()
+            .ConfigureAwait(false);
+
 
         public Task<MoneyLaundererReport> GetNextDateAsync() => 
             _context.MoneyLaundererReports

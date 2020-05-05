@@ -2,8 +2,8 @@
 using Application;
 using Application.Common.Interfaces;
 using AutoMapper;
+using BankMoneyLaunderer.MoneyLaundryRepository;
 using BankMoneyLaunderer.MoneyLaundryStrategy;
-using BankMoneyLaunderer.Repository;
 using BankMoneyLaunderer.Services;
 using FluentValidation.AspNetCore;
 using Infrastructure;
@@ -32,11 +32,23 @@ namespace BankMoneyLaunderer
                 _configuration.GetSection(nameof(EmailConfiguration)).Get<EmailConfiguration>());
             services.AddTransient<IEmailService, EmailService>();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    _configuration.GetConnectionString("Default"),
-                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
-            services.AddTransient<IRepository, Repository.Repository>();
+            if (_configuration.GetValue<bool>("UseInMemoryDatabase"))
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                {
+
+                    options.UseInMemoryDatabase("Default");
+                });
+            }
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(
+                        _configuration.GetConnectionString("Default"),
+                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+            }
+
+            services.AddTransient<IRepository, MoneyLaundryRepository.Repository>();
 
             services.AddTransient<IMoneyLaundryConfig>(provider => _configuration.GetSection(nameof(MoneyLaundryConfig)).Get<MoneyLaundryConfig>());
             services.AddTransient<IMoneyLaundryStrategy, TransactionBiggerThanXkrStrategy>();

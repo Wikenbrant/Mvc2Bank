@@ -33,6 +33,9 @@ public class Testing
 
         _configuration = builder.Build();
 
+        var x = Directory.GetCurrentDirectory();
+        var y = _configuration.GetSection("UseInMemoryDatabase").Get<bool>();
+
         var startup = new Startup(_configuration);
 
         var services = new ServiceCollection();
@@ -45,7 +48,7 @@ public class Testing
 
         startup.ConfigureServices(services);
 
-        
+
         // Remove existing registration
 
         var currentUserServiceDescriptor = services.FirstOrDefault(d =>
@@ -111,7 +114,7 @@ public class Testing
         return await context.FindAsync<TEntity>(id).ConfigureAwait(false);
     }
 
-    public static async Task AddAsync<TEntity>(TEntity entity)
+    public static Task AddAsync<TEntity>(TEntity entity)
         where TEntity : class
     {
         using var scope = _scopeFactory.CreateScope();
@@ -120,9 +123,9 @@ public class Testing
 
         context.Add(entity);
 
-        await context.SaveChangesAsync();
+        return context.SaveChangesAsync();
     }
-    public static async Task AddRangeAsync<TEntity>(IEnumerable<TEntity> entities)
+    public static Task AddRangeAsync<TEntity>(IEnumerable<TEntity> entities)
         where TEntity : class
     {
         using var scope = _scopeFactory.CreateScope();
@@ -131,7 +134,7 @@ public class Testing
 
         context.AddRange(entities);
 
-        await context.SaveChangesAsync();
+        return context.SaveChangesAsync();
     }
     [OneTimeTearDown]
     public void RunAfterAnyTests()

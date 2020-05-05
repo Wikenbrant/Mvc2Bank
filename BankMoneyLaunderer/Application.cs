@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BankMoneyLaunderer.Models;
+using BankMoneyLaunderer.MoneyLaundryRepository;
 using BankMoneyLaunderer.MoneyLaundryStrategy;
-using BankMoneyLaunderer.Repository;
 using BankMoneyLaunderer.Services;
 using Domain.Entities;
 
