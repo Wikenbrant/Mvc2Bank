@@ -12,12 +12,6 @@ namespace Web.Controllers
 {
     public class CustomersController : Controller
     {
-        private readonly IMediator _mediator;
-
-        public CustomersController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
 
         public  IActionResult Index([FromRoute] GetCustomerQuery query)
         {

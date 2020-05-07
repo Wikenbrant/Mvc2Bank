@@ -3,8 +3,17 @@
 @{
     Layout = null;
 }
-
-<div class="card">
+@if(Model.Customer == null)
+{
+    <div class="card">
+        <div class="card-body">
+            <h4 class="text-danger">Customer does not exist</h4>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card">
         <div class="card-body">
             <div class="e-profile">
                 <ul class="nav nav-tabs">
@@ -86,7 +95,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <partial name="Components/CustomerDetail/_CustomerAccounts"/>
+                                <partial name="Components/CustomerDetail/_CustomerAccounts" />
                             </div>
                         </div>
                     </div>
@@ -94,3 +103,5 @@
             </div>
         </div>
     </div>
+}
+

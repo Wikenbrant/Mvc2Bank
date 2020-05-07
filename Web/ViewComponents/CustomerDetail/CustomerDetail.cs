@@ -18,6 +18,7 @@ namespace Web.ViewComponents.CustomerDetail
         {
             var model = await _mediator.Send(query)
                 .ConfigureAwait(false);
+
             return View(model);
         }
     }

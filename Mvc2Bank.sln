@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankMoneyLaunderer", "BankM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankMoneyLaunderer.Tests", "BankMoneyLaunderer.Tests\BankMoneyLaunderer.Tests.csproj", "{66166A23-6396-4455-A06A-C63B450FA584}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Tests", "Web.Tests\Web.Tests.csproj", "{F1A1B90F-049E-45FF-AA1D-4BD3026604C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{66166A23-6396-4455-A06A-C63B450FA584}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66166A23-6396-4455-A06A-C63B450FA584}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66166A23-6396-4455-A06A-C63B450FA584}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1A1B90F-049E-45FF-AA1D-4BD3026604C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1A1B90F-049E-45FF-AA1D-4BD3026604C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1A1B90F-049E-45FF-AA1D-4BD3026604C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1A1B90F-049E-45FF-AA1D-4BD3026604C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{434E150A-158A-461E-A077-DE12DA136CBF} = {03123254-78B7-43AE-8111-116A2BD89383}
 		{3347DD67-0079-4029-AFA8-6F5FF2A91A55} = {DC41529D-8FEE-48D3-B729-CB5CD7E80DD2}
 		{66166A23-6396-4455-A06A-C63B450FA584} = {03123254-78B7-43AE-8111-116A2BD89383}
+		{F1A1B90F-049E-45FF-AA1D-4BD3026604C9} = {03123254-78B7-43AE-8111-116A2BD89383}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8B825467-8536-4B3B-8145-27385C4C8D26}

@@ -33,9 +33,6 @@ public class Testing
 
         _configuration = builder.Build();
 
-        var x = Directory.GetCurrentDirectory();
-        var y = _configuration.GetSection("UseInMemoryDatabase").Get<bool>();
-
         var startup = new Startup(_configuration);
 
         var services = new ServiceCollection();
