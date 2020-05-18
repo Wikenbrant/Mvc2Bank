@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
+using Application.Customers.Queries.GetCustomersPagination;
+using Application.Customers.Queries.GetCustomersPaginationOrderOn;
 using Application.Customers.Queries.GetTop10CustomersByCountry;
+using Application.Search.Query;
 using Application.Statistics.Query.GetNumberOfAccountsAndTotalSumForEachCountry;
-using Infrastructure.Identity;
+using Domain.SearchModels;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Web.Models;
 
@@ -33,7 +30,9 @@ namespace Web.Controllers
             var model = new IndexViewModel
             {
                 Countries = await _mediator.Send(new GetNumberOfAccountsAndTotalSumForEachCountryQuery()).ConfigureAwait(false)
-            }; return View(model);
+            };
+
+            return View(model);
         }
 
         [ResponseCache(CacheProfileName = "Country60")]
@@ -46,7 +45,6 @@ namespace Web.Controllers
         {
             return ViewComponent(nameof(ViewComponents.StatisticsCountries));
         }
-
 
 
         public IActionResult Privacy()

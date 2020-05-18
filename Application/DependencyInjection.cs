@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 using Application.Common.Interfaces;
 using Application.Common.Services;
 using AutoMapper;

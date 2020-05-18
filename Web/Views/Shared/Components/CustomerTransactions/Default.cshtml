@@ -5,7 +5,7 @@
 @foreach (var transaction in Model.Transactions)
 {
     <tr>
-        <td class="text-center">Id: @transaction.TransactionId</td>
+        <td class="text-center" colspan="2">Id: @transaction.TransactionId</td>
         <td class="text-center">@transaction.Amount.ToString("C")</td>
         <td class="text-center">@transaction.Balance.ToString("C")</td>
     </tr>

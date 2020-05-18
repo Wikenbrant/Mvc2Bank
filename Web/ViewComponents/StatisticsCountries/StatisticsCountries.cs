@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Application.Statistics.Query.GetNumberOfAccountsAndTotalSumForEachCountry;
-using Application.Statistics.Query.GetNumberOfAccountsCustomerAndTotalBalance;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

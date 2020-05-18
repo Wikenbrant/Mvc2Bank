@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Application.Customers.Queries.GetTop10CustomersByCountry;
-using Application.Statistics.Query.GetNumberOfAccountsAndTotalSumForEachCountry;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

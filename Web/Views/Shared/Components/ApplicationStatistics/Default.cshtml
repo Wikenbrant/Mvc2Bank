@@ -3,16 +3,16 @@
 @{
     Layout = null;
 }
-
+    <h4>Statistics</h4>
 <div class="row">
     <div class="col-sm-12 col-md-4">
         <partial name="Components/ApplicationStatistics/_StatisticsCard" model="@(new StatisticsCardViewModel
-                                                                            {
-                                                                                DisplayTitle = "Customers",
-                                                                                DisplayText = $"{Model.NumberOfCustomers} st",
-                                                                                Color = "yellow",
-                                                                                FaIcon = "fas fa-user-friends"
-                                                                            })" />
+                                                                                {
+                                                                                    DisplayTitle = "Customers",
+                                                                                    DisplayText = $"{Model.NumberOfCustomers} st",
+                                                                                    Color = "yellow",
+                                                                                    FaIcon = "fas fa-user-friends"
+                                                                                })"/>
     </div>
     <div class="col-sm-12 col-md-4">
         <partial name="Components/ApplicationStatistics/_StatisticsCard" model="@(new StatisticsCardViewModel
@@ -21,7 +21,7 @@
                                                                                     DisplayText = $"{Model.NumberOfAccounts} st",
                                                                                     Color = "blue",
                                                                                     FaIcon = "fas fa-credit-card"
-                                                                                })" />
+                                                                                })"/>
     </div>
     <div class="col-sm-12 col-md-4">
         <partial name="Components/ApplicationStatistics/_StatisticsCard" model="@(new StatisticsCardViewModel
@@ -30,6 +30,6 @@
                                                                                     DisplayText = Model.TotalBalance.ToString("C"),
                                                                                     Color = "green",
                                                                                     FaIcon = "fas fa-money-bill-wave"
-                                                                                })" />
+                                                                                })"/>
     </div>
 </div>

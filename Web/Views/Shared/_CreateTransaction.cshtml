@@ -1,0 +1,93 @@
+﻿@using Domain.Enums
+@model CreateTransactionViewModel
+
+
+<form asp-controller="Transactions" asp-action="CreateTransaction" method="post" class="createTransactionForm">
+    <ul class="errors text-danger"></ul>
+
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="AccountId"></label>
+            <select class="form-control"
+                    asp-for="AccountId"
+                    asp-items="new SelectList(Model.AccountIds)">
+                <option disabled selected>Select account</option>
+            </select>
+            <span asp-validation-for="Type"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="Bank"></label>
+            <input class="form-control" asp-for="Bank"/>
+            <span asp-validation-for="Bank"></span>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="form-group">
+            <label asp-for="Account"></label>
+            <input class="form-control" asp-for="Account"/>
+            <span asp-validation-for="Account"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="Amount"></label>
+            <input class="form-control" asp-for="Amount"/>
+            <span asp-validation-for="Amount"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="Type"></label>
+            <select class="form-control"
+                    asp-for="Type"
+                    asp-items="Enum.GetValues(typeof(TransactionType)).Cast<TransactionType>().Select(t =>
+    new SelectListItem
+    {
+        Text = t.ToString(),
+        Value = t.ToString()
+    }).ToList()">
+                <option disabled selected>Select operation</option>
+            </select>
+            <span asp-validation-for="Type"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="Operation"></label>
+            <select class="form-control"
+                    asp-for="Operation"
+                    asp-items="OperationTypes.Operations.Where(o => !string.IsNullOrEmpty(o)).Select(o =>
+    new SelectListItem
+    {
+        Text = o.ToString(),
+        Value = o.ToString()
+    }).ToList()">
+                <option disabled selected>Select operation</option>
+            </select>
+            <span asp-validation-for="Operation"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="Symbol"></label>
+            <select class="form-control"
+                    asp-for="Symbol"
+                    asp-items="SymbolType.Symbols.Where(o => !string.IsNullOrEmpty(o)).Select(s =>
+    new SelectListItem
+    {
+        Text = s.ToString(),
+        Value = s.ToString()
+    }).ToList()">
+                <option disabled selected value="">Select symbol</option>
+            </select>
+            <span asp-validation-for="Symbol"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary">Submit</button>
+    </div>
+</form>

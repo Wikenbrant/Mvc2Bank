@@ -1,15 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using BankMoneyLaunderer.MoneyLaundryRepository;
 using BankMoneyLaunderer.MoneyLaundryStrategy;
-using Domain.Entities;
-using Domain.Enums;
-using FluentAssertions;
-using Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using NUnit.Framework;

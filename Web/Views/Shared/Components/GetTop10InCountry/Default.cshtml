@@ -9,22 +9,33 @@
     {
         <div class="card">
             <div class="card-header" id="@($"HeaderCustomer{customer.CustomerId}")">
-                <h5 class="mb-0">
-                    <a class="btn btn-link httpGet"
-                       asp-controller="Customers"
-                       asp-action="Index"
-                       asp-route-id="@customer.CustomerId"
-                       data-toggle="collapse"
-                       data-target="#@($"collapseCustomer{customer.CustomerId}")"
-                       aria-expanded="true"
-                       aria-controls="@($"collapseCustomer{customer.CustomerId}")"
-                       data-ajax="true"
-                       data-ajax-method="GET"
-                       data-ajax-mode="replace"
-                       data-ajax-update="#@($"loaderCustomer{customer.CustomerId}")">
-                        @customer.Givenname @customer.Surname
-                    </a>
-                </h5>
+                <a class="btn btn-link httpGet collapsed"
+                   asp-controller="Customers"
+                   asp-action="Index"
+                   asp-route-id="@customer.CustomerId"
+                   data-toggle="collapse"
+                   data-target="#@($"collapseCustomer{customer.CustomerId}")"
+                   aria-expanded="true"
+                   aria-controls="@($"collapseCustomer{customer.CustomerId}")"
+                   data-ajax="true"
+                   data-ajax-method="GET"
+                   data-ajax-mode="replace"
+                   data-ajax-update="#@($"loaderCustomer{customer.CustomerId}")"
+                   style="width: 100%">
+                    <div class="row" >
+                        <div class="col-sm-1 m-0">
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </div>
+                        <div class="col-sm-11 m-0">
+                            <h5 class="m-0 text-left">
+                                @customer.Givenname @customer.Surname
+                            </h5>
+                        </div>
+                    </div>
+                </a>
+                
             </div>
 
             <div id="@($"collapseCustomer{customer.CustomerId}")" 

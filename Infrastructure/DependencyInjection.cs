@@ -1,11 +1,13 @@
-﻿using Application.Common.Interfaces;
+﻿using System.Text;
+using Application.Common.Interfaces;
 using Infrastructure.Identity;
 using Infrastructure.Persistence;
-using Microsoft.AspNetCore.Authentication;
+using Infrastructure.Search;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure
 {
@@ -31,18 +33,27 @@ namespace Infrastructure
             }
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            services.Decorate<IApplicationDbContext, SearchIndexer>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            //services.AddIdentityServer()
-            //    .AddApiAuthorization<ApplicationUser, IApplicationDbContext>();
-
 
             services.AddTransient<IIdentityService, IdentityService>();
+            services.AddTransient<ISearchService, SearchService>();
 
-
-            services.AddAuthentication().AddJwtBearer();
+            services.AddAuthentication()
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        RequireExpirationTime = false,
+                        ValidateAudience = false,
+                        RequireAudience = false,
+                        ValidateIssuer = false,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Token:secretKey"]))
+                    };
+                });
             services.AddAuthorization();
 
             return services;

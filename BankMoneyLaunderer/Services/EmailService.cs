@@ -3,7 +3,6 @@ using System.Linq;
 using BankMoneyLaunderer.Models;
 using MailKit.Net.Pop3;
 using MailKit.Net.Smtp;
-using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Text;
 

@@ -32,13 +32,45 @@ $(function () {
     $(document).ready(function () {
         $(document).on('click', '.httpGet',
             function () {
-
+                
                 ajaxGet(this.href, this.dataset.ajaxUpdate);
-                // do something…
             });
-    });
 
-    $(document).ready(function () {
+        $(document).on('change', '.httpSearch',
+            function (e) {
+                e.preventDefault();
+                $.ajax(
+                    {
+                        type: "Get",
+                        url: this.dataset.url,
+                        data: {
+                            searchText: $("#search").val()
+                        },
+                        success: (response) => {
+                            debugger;
+                            $(this.dataset.replaceid).html(response);
+                        },
+                        dataType: "html"
+                    });
+            });
+        $(document).on('click', '.httpSearch',
+            function (e) {
+                e.preventDefault();
+                $.ajax(
+                    {
+                        type: "Get",
+                        url: this.href,
+                        data: {
+                            searchText: $("#search").val()
+                        },
+                        success: (response) => {
+                            debugger;
+                            $(this.dataset.replaceid).html(response);
+                        },
+                        dataType: "html"
+                    });
+            });
+
         $(document).on('click', '.append',
             function () {
                 var url;
@@ -48,6 +80,34 @@ $(function () {
                     url = this.dataset.ajaxUrl;
                 }
                 ajaxAppend(url, this.dataset.ajaxAppend, this.dataset.ajaxDelete);
+            });
+
+        $(document).on('click', '.customer-tab-pane',
+            function () {
+                $("#customer" + this.dataset.customerid + "Tabs").find(".active").toggleClass("active");
+                $("#customer" + this.dataset.customerid + "NavTabs").find(".active").toggleClass("active");
+                $(this.dataset.open).toggleClass("active");
+                $(this).toggleClass("active");
+            });
+
+        $(document).on('submit', '.createTransactionForm',
+            function (e) {
+                e.preventDefault();
+                var form = this;
+                $.ajax({
+                    type: "POST",
+                    url: this.action,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                var error = data[i];
+                                var errorLi = $("<li></li>").text(error);
+                                $(form).find(".errors").append(errorLi);
+                            }
+                        }
+                    }
+                });
             });
     });
 });

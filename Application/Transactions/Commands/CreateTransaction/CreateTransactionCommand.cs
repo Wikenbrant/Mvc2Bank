@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.Common.Models;
-using Domain.Entities;
 using Domain.Enums;
 using MediatR;
 
@@ -32,10 +31,9 @@ namespace Application.Transactions.Commands.CreateTransaction
         {
             var (result, transaction) = request.Type switch
             {
-                TransactionType.Credit => await _transactionService.MakeInsertAsync(request.AccountId,
+                TransactionType.Credit => await _transactionService.MakeDepositAsync(request.AccountId,
                     request.Amount,
                     request.Operation,
-                    request.Type.ToString(),
                     request.Symbol,
                     request.Bank,
                     request.Account,
@@ -43,7 +41,6 @@ namespace Application.Transactions.Commands.CreateTransaction
                 TransactionType.Debit => await _transactionService.MakeWithdrawalAsync(request.AccountId,
                     request.Amount,
                     request.Operation,
-                    request.Type.ToString(),
                     request.Symbol,
                     request.Bank,
                     request.Account,

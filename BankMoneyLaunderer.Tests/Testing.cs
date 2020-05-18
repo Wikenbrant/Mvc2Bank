@@ -1,21 +1,13 @@
 using System;
 using System.Collections.Generic;
-using MediatR;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using NUnit.Framework;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using Application.Common.Interfaces;
 using AutoMapper;
 using BankMoneyLaunderer;
 using BankMoneyLaunderer.MoneyLaundryStrategy;
-using Infrastructure.Identity;
 using Infrastructure.Persistence;
 
 [SetUpFixture]

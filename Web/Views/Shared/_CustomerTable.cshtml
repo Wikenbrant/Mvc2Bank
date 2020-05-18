@@ -1,0 +1,38 @@
+﻿@using Application.Search.Query
+@using Domain.SearchModels
+
+<table id="accordionCustomerTable" style="width: 100%">
+    <thead>
+    <tr class="card">
+        <th>Sök:<input id="search" class="form-control httpSearch" type="text" data-url="@Url.Action("GetCustomers", "Customers")" data-replaceId="#customerTableBody"/></th>
+    </tr>
+    <tr class="card">
+        <th>
+            <div class="row">
+                <div class="offset-1 col-sm-2">
+                    <a class="nav-link httpSearch" data-replaceId="#customerTableBody" data-currentpage="@"
+                       asp-controller="Customers" asp-action="GetCustomers" asp-route-orderBy="Ascending" asp-route-orderByField="@nameof(CustomerSearch.Givenname)">
+                        Given name
+                    </a>
+                </div>
+                <div class="col-sm-1">
+                    <a class="nav-link httpSearch" data-replaceId="#customerTableBody" asp-controller="Customers" asp-action="GetCustomers" asp-route-orderBy="Ascending" asp-route-orderByField="@nameof(CustomerSearch.Surname)">
+                        Surname
+                    </a>
+                </div>
+                <div class="col-sm-1">
+                    <a class="nav-link httpSearch" data-replaceId="#customerTableBody" asp-controller="Customers" asp-action="GetCustomers" asp-route-orderBy="Ascending" asp-route-orderByField="@nameof(CustomerSearch.City)">
+                        City
+                    </a>
+                </div>
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody id="customerTableBody">
+    @await Component.InvokeAsync("CustomerTableBody", new {query = new SearchQuery {Search = new SearchData {CurrentPage = 1}}}).ConfigureAwait(false)
+    </tbody>
+    <tfoot>
+
+    </tfoot>
+</table>

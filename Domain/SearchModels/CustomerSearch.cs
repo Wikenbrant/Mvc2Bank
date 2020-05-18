@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Azure.Search;
+﻿using Microsoft.Azure.Search;
 
 namespace Domain.SearchModels
 {
@@ -46,6 +44,6 @@ namespace Domain.SearchModels
         [IsSearchable, IsSortable, IsFacetable]
         public string Emailaddress { get; set; }
 
-        public virtual ICollection<DispositionSearch> Dispositions { get; set; }
+        //public virtual ICollection<DispositionSearch> Dispositions { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.Common.Models;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Common.Services
@@ -17,7 +18,7 @@ namespace Application.Common.Services
             _context = context;
         }
         public async Task<(Result result, Transaction transaction)> MakeWithdrawalAsync(
-            int accountId, decimal amount, string operation, string type,string symbol,string bank,string toAccount, 
+            int accountId, decimal amount, string operation,string symbol,string bank,string toAccount, 
             CancellationToken cancellationToken)
         {
             var account = await _context.Accounts.FirstOrDefaultAsync(a => a.AccountId == accountId, cancellationToken)
@@ -45,7 +46,7 @@ namespace Application.Common.Services
                 AccountId = accountId,
                 AccountNavigation = account,
                 Date = DateTime.Today,
-                Type = type,
+                Type = TransactionType.Debit.ToString(),
                 Operation = operation,
                 Amount = amount,
                 Balance = account.Balance,
@@ -61,7 +62,7 @@ namespace Application.Common.Services
             return (Result.Success(), entity);
         }
 
-        public async Task<(Result result, Transaction transaction)> MakeInsertAsync(int accountId, decimal amount, string operation, string type, string symbol, string bank,
+        public async Task<(Result result, Transaction transaction)> MakeDepositAsync(int accountId, decimal amount, string operation, string symbol, string bank,
             string toAccount, CancellationToken cancellationToken)
         {
             var account = await _context.Accounts.FirstOrDefaultAsync(a => a.AccountId == accountId, cancellationToken)
@@ -84,7 +85,7 @@ namespace Application.Common.Services
                 AccountId = accountId,
                 AccountNavigation = account,
                 Date = DateTime.Today,
-                Type = type,
+                Type = TransactionType.Credit.ToString(),
                 Operation = operation,
                 Amount = amount,
                 Balance = account.Balance,

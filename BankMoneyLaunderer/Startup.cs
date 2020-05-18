@@ -1,14 +1,9 @@
 ﻿using System.Reflection;
-using Application;
-using Application.Common.Interfaces;
 using AutoMapper;
 using BankMoneyLaunderer.MoneyLaundryRepository;
 using BankMoneyLaunderer.MoneyLaundryStrategy;
 using BankMoneyLaunderer.Services;
-using FluentValidation.AspNetCore;
-using Infrastructure;
 using Infrastructure.Persistence;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

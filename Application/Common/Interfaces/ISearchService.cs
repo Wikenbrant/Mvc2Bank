@@ -5,6 +5,7 @@ namespace Application.Common.Interfaces
 {
     public interface ISearchService
     {
-        Task<SearchData> RunQueryAsync(string searchText, int page, int pageSize, params string[] selectFields);
+        Task<SearchData> RunQueryAsync(SearchData model, int page, int leftMostPage,
+            string[] searchFields = null, string[] OrderBy = null, string[] selectFields = null);
     }
 }

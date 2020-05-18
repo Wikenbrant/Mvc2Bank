@@ -4,3 +4,13 @@
     background-color: rgba(185,187,190,0.05);
     cursor: pointer;
 }
+
+.sb-sidenav-collapse-arrow {
+    display: inline-block;
+    margin-left: auto;
+    transition: transform 0.15s ease;
+}
+
+.collapsed .sb-sidenav-collapse-arrow {
+    transform: rotate(-90deg);
+}

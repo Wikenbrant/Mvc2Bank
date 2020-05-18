@@ -1,6 +1,4 @@
-﻿using Microsoft.Azure.Search;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
     public partial class PermanentOrder
     {

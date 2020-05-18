@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
-using Application.Customers.Queries.GetCustomers;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
@@ -33,6 +32,7 @@ namespace Application.Customers.Queries.GetTop10CustomersByCountry
         {
             Customers = await _context.Customers
                 .Where(customer => customer.Country == request.Country)
+                .OrderByDescending(c => c.Dispositions.Sum(d=>d.Account.Balance))
                 .ProjectTo<Top10CustomersByCountryDto>(_mapper.ConfigurationProvider)
                 .Take(10)
                 .ToListAsync(cancellationToken)

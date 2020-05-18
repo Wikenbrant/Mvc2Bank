@@ -21,7 +21,7 @@ namespace Infrastructure.Persistence
         public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager)
         {
             var defaultUser = new ApplicationUser { UserName = "Admin", Email = "admin@admin.se" };
-            var stefanAdmin = new ApplicationUser { UserName = "StefanAdmin", Email = "stefan.holmberg@nackademin.se" };
+            var stefanAdmin = new ApplicationUser { UserName = "StefanAdmin", Email = "stefan.holmberg@systementor.se" };
             var stefanCashier = new ApplicationUser { UserName = "StefanCashier", Email = "stefan.holmberg@nackademin.se" };
 
             if (!userManager.Users.Any(u => u.UserName == defaultUser.UserName))
@@ -37,7 +37,7 @@ namespace Infrastructure.Persistence
             if (!userManager.Users.Any(u => u.UserName == stefanCashier.UserName))
             {
                 await userManager.CreateAsync(stefanCashier, "Hejsan123#").ConfigureAwait(false);
-                await userManager.AddToRoleAsync(stefanCashier, "Admin").ConfigureAwait(false);
+                await userManager.AddToRoleAsync(stefanCashier, "Cashier").ConfigureAwait(false);
             }
         }
     }

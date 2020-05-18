@@ -69,10 +69,10 @@ namespace Domain.SearchModels
                 sb.Append($"{nameof(Telephonenumber)}: {Telephonenumber}\n");
             }
 
-            if (Dispositions != null && Dispositions.Count > 0)
-            {
-                sb.Append($"{nameof(Dispositions)}: [{String.Join(", ", Dispositions)}]\n");
-            }
+            //if (Dispositions != null && Dispositions.Count > 0)
+            //{
+            //    sb.Append($"{nameof(Dispositions)}: [{String.Join(", ", Dispositions)}]\n");
+            //}
 
             if (!String.IsNullOrEmpty(Gender))
             {

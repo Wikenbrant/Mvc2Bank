@@ -6,7 +6,7 @@ namespace Domain.SearchModels
     public class SearchData
     {
         // The text to search for.
-        public string SearchText { get; set; }
+        public string SearchText { get; set; } = "";
 
         // The current page being displayed.
         public int CurrentPage { get; set; }

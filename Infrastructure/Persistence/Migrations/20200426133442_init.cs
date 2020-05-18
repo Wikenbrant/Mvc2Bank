@@ -219,11 +219,6 @@ namespace Infrastructure.Persistence.Migrations
                 name: "IX_PermenentOrder_AccountId",
                 table: "PermenentOrder",
                 column: "AccountId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Transactions_AccountId",
-                table: "Transactions",
-                column: "AccountId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

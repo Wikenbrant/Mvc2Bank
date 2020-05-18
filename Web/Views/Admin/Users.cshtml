@@ -1,0 +1,44 @@
+﻿@using Microsoft.EntityFrameworkCore
+@model IEnumerable<ApplicationUser>
+@inject UserManager<ApplicationUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+@foreach (var role in await RoleManager.Roles.ToListAsync().ConfigureAwait(false))
+{
+    <table class="table table-dark table-hover m-4 p-5">
+        <thead>
+            <tr>
+                <td colspan="4">Role: @role.Name</td>
+            </tr>
+            <tr>
+                <td>UserId</td>
+                <td>Name</td>
+                <td>Email</td>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in await UserManager.Users.ToListAsync().ConfigureAwait(false))
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    @if (!await UserManager.IsInRoleAsync(user, role.Name).ConfigureAwait(false))
+                    {
+                        <form asp-action="AddRole" asp-route-userId="@user.Id" asp-route-roleName="Admin" method="post">
+                            <input class="btn btn-success" type="submit" value="Add to @role.Name" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="RemoveRole" asp-route-userId="@user.Id" asp-route-roleName="@role.Name" method="post">
+                            <input class="btn btn-danger" type="submit" value="Remove" />
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

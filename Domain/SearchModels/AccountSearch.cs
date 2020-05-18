@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Domain.Entities;
 using Microsoft.Azure.Search;
 
 namespace Domain.SearchModels
