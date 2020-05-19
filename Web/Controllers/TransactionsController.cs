@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Transactions.Commands.CreateTransaction;
+using Application.Transactions.Queries.GetTransaction;
 using Application.Transactions.Queries.GetTransactionsByAccountIdPagination;
 using Domain.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class TransactionsController : Controller
     {
         private readonly IMediator _mediator;
@@ -46,12 +49,20 @@ namespace Web.Controllers
             var (result, transactionID) = await _mediator.Send(command).ConfigureAwait(false);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                return Json(new
+                {
+                    redirect = Url.Action(nameof(Confirmation), new{id= transactionID })
+                });
             }
 
             return Json(result.Errors);
         }
 
+        public async Task<IActionResult> Confirmation(int id)
+        {
+            var model = await _mediator.Send(new GetTransactionQuery {Id = id}).ConfigureAwait(false);
+            return View(model);
+        }
 
         private static CreateTransactionViewModel CreateModel(IEnumerable<int> accountIds) =>
             new CreateTransactionViewModel

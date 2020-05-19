@@ -10,7 +10,13 @@ $(function () {
                 type: "Get",
                 url: url,
                 success: (response) => {
-                    $(replaceId).html(response);
+                    if (response.redirect) {
+                        // data.redirect contains the string URL to redirect to
+                        window.location.href = response.redirect;
+                    } else {
+                        // data.form contains the HTML for the replacement form
+                        $(replaceId).html(response);
+                    }
                 },
                 dataType: "html"
             });
@@ -23,7 +29,13 @@ $(function () {
                 type: "Get",
                 url: url,
                 success: (response) => {
-                    $(appendId).append(response);
+                    if (response.redirect) {
+                        // data.redirect contains the string URL to redirect to
+                        window.location.href = response.redirect;
+                    } else {
+                        // data.form contains the HTML for the replacement form
+                        $(appendId).append(response);
+                    }
                 },
                 dataType: "html"
             });
@@ -47,15 +59,22 @@ $(function () {
                             searchText: $("#search").val()
                         },
                         success: (response) => {
-                            debugger;
-                            $(this.dataset.replaceid).html(response);
+                            if (response.redirect) {
+                                // data.redirect contains the string URL to redirect to
+                                window.location.href = response.redirect;
+                            } else {
+                                // data.form contains the HTML for the replacement form
+                                $(this.dataset.replaceid).html(response);
+                            }
+                            
                         },
                         dataType: "html"
                     });
             });
-        $(document).on('click', '.httpSearch',
+        $(document).on('click', '.httpOther',
             function (e) {
                 e.preventDefault();
+
                 $.ajax(
                     {
                         type: "Get",
@@ -64,8 +83,14 @@ $(function () {
                             searchText: $("#search").val()
                         },
                         success: (response) => {
-                            debugger;
-                            $(this.dataset.replaceid).html(response);
+                            
+                            if (response.redirect) {
+                                // data.redirect contains the string URL to redirect to
+                                window.location.href = response.redirect;
+                            } else {
+                                // data.form contains the HTML for the replacement form
+                                $(this.dataset.replaceid).html(response);
+                            }
                         },
                         dataType: "html"
                     });
@@ -99,13 +124,20 @@ $(function () {
                     url: this.action,
                     data: $(this).serialize(),
                     success: function (data) {
-                        if (data.length > 0) {
-                            for (var i = 0; i < data.length; i++) {
-                                var error = data[i];
-                                var errorLi = $("<li></li>").text(error);
-                                $(form).find(".errors").append(errorLi);
+                        if (data.redirect) {
+                            // data.redirect contains the string URL to redirect to
+                            window.location.href = data.redirect;
+                        } else {
+                            // data.form contains the HTML for the replacement form
+                            if (data.length > 0) {
+                                for (var i = 0; i < data.length; i++) {
+                                    var error = data[i];
+                                    var errorLi = $("<li></li>").text(error);
+                                    $(form).find(".errors").append(errorLi);
+                                }
                             }
                         }
+                        
                     }
                 });
             });

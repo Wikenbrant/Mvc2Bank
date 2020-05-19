@@ -31,6 +31,7 @@ namespace Application.Statistics.Query.GetNumberOfAccountsAndTotalSumForEachCoun
                         {
                             customer.CustomerId,
                             customer.Country,
+                            Accounts = customer.Dispositions.Count,
                             account.Balance
                         })
                     )
@@ -43,6 +44,7 @@ namespace Application.Statistics.Query.GetNumberOfAccountsAndTotalSumForEachCoun
                 {
                     Country = g.Key.Country,
                     NumberOfCustomers = g.Count(),
+                    NumberOfAccounts = g.Sum(c=>c.Accounts),
                     Total = g.Sum(b => b.Balance)
                 })
                 .ToListAsync(cancellationToken).ConfigureAwait(false)

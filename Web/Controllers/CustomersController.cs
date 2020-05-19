@@ -3,10 +3,12 @@ using Application.Customers.Queries.GetCustomersPagination;
 using Application.Search.Query;
 using Domain.Enums;
 using Domain.SearchModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {
         public IActionResult Index([FromRoute] GetCustomerQuery query)
@@ -16,7 +18,7 @@ namespace Web.Controllers
 
         public IActionResult GetCustomers(int page = 1, string searchText = "" , string orderByField = "", OrderByType orderBy = OrderByType.None)
         {
-            return ViewComponent(nameof(ViewComponents.CustomerTableBody),
+            return ViewComponent(nameof(ViewComponents.CustomerTable),
                 new
                 {
                     query = new SearchQuery

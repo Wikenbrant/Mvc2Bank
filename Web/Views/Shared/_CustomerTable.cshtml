@@ -1,27 +1,45 @@
 ﻿@using Application.Search.Query
 @using Domain.SearchModels
-
 <table id="accordionCustomerTable" style="width: 100%">
     <thead>
     <tr class="card">
-        <th>Sök:<input id="search" class="form-control httpSearch" type="text" data-url="@Url.Action("GetCustomers", "Customers")" data-replaceId="#customerTableBody"/></th>
+        <th>Sök:<input id="search" class="form-control httpSearch" type="text" data-url="@Url.Action("GetCustomers", "Customers",new{})" data-replaceId="#customerTableBody"/></th>
     </tr>
     <tr class="card">
         <th>
             <div class="row">
                 <div class="offset-1 col-sm-2">
-                    <a class="nav-link httpSearch" data-replaceId="#customerTableBody" data-currentpage="@"
-                       asp-controller="Customers" asp-action="GetCustomers" asp-route-orderBy="Ascending" asp-route-orderByField="@nameof(CustomerSearch.Givenname)">
+                    <a class="nav-link httpSearch"
+                       id="@nameof(CustomerSearch.Givenname)"
+                       data-replaceId="#customerTableBody" 
+                       data-orderBy="0" 
+                       data-orderByIncrease
+                       data-orderByField="@nameof(CustomerSearch.Givenname)"
+                       asp-controller="Customers" 
+                       asp-action="GetCustomers">
                         Given name
                     </a>
                 </div>
                 <div class="col-sm-1">
-                    <a class="nav-link httpSearch" data-replaceId="#customerTableBody" asp-controller="Customers" asp-action="GetCustomers" asp-route-orderBy="Ascending" asp-route-orderByField="@nameof(CustomerSearch.Surname)">
+                    <a class="nav-link httpSearch" 
+                       id="@nameof(CustomerSearch.Surname)"
+                       data-replaceId="#customerTableBody" 
+                       data-orderBy="0" 
+                       data-orderByIncrease
+                       data-orderByField="@nameof(CustomerSearch.Surname)"
+                       asp-controller="Customers" asp-action="GetCustomers">
                         Surname
                     </a>
                 </div>
                 <div class="col-sm-1">
-                    <a class="nav-link httpSearch" data-replaceId="#customerTableBody" asp-controller="Customers" asp-action="GetCustomers" asp-route-orderBy="Ascending" asp-route-orderByField="@nameof(CustomerSearch.City)">
+                    <a class="nav-link httpSearch" 
+                       id="@nameof(CustomerSearch.City)"
+                       data-replaceId="#customerTableBody" 
+                       data-orderBy="0" 
+                       data-orderByIncrease
+                       data-orderByField="@nameof(CustomerSearch.City)"
+                       asp-controller="Customers" 
+                       asp-action="GetCustomers">
                         City
                     </a>
                 </div>

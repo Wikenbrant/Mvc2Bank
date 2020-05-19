@@ -1,7 +1,22 @@
-﻿@model IndexViewModel
+﻿@using Application.Search.Query
+@using Domain.Enums
+@using Domain.SearchModels
+@model IndexViewModel
 
 
 <h1 class="mt-4">Dashboard</h1>
 @await Component.InvokeAsync("ApplicationStatistics").ConfigureAwait(false)
 @await Component.InvokeAsync("StatisticsCountries").ConfigureAwait(false)
-<partial name="_CustomerTable" />
+@await Component.InvokeAsync("CustomerTable",new
+{
+    query = new SearchQuery
+    {
+        Page = 1, 
+        Search = new SearchData
+        {
+            SearchText = ""
+        },
+        OrderByField = "",
+        OrderByType = OrderByType.None
+    }
+}).ConfigureAwait(false)

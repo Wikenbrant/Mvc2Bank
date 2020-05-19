@@ -15,7 +15,7 @@ namespace Infrastructure.Search
 
         public static int PageRangeDelta => 2;
 
-        public static string Contains = "~5";
+        public static string Contains = "~10";
     }
 
     public class SearchService : ISearchService

@@ -1,0 +1,203 @@
+﻿@model CustomerTableViewModel
+@using System.Threading
+@using Application.Search.Query
+@using Domain.Enums
+@using Domain.SearchModels
+
+@{
+    var delta = (int)Math.Floor(Model.SearchData.PageRange / 2.0);
+    var leftOverStart = Model.Page + delta - Model.SearchData.PageCount;
+    var startForLoop = Model.Page > delta ? Model.Page - delta -(leftOverStart > 0 ? leftOverStart : 0) : 1;
+    var leftOverEnd = delta - Model.Page + 1;
+    var endForLoop = Model.SearchData.PageCount < Model.Page + delta ? Model.SearchData.PageCount : Model.Page + delta + (leftOverEnd > 0 ? leftOverEnd : 0);
+}
+<div id="CustomerTableContainer">
+    <table id="accordionCustomerTable" style="width: 100%">
+        <thead>
+            <tr class="card">
+                <th>Sök:<input id="search" class="form-control httpSearch" type="text" value="@Model.SearchData.SearchText" data-url="@Url.Action("GetCustomers", "Customers", new {page = Model.Page, orderByField = Model.OrderByField, orderBy = Model.OrderByType})" data-replaceId="#CustomerTableContainer" /></th>
+            </tr>
+            <tr class="card">
+                <th>
+                    <div class="row">
+                        <div class="offset-1 col-sm-3">
+                            <a class="nav-link httpOther"
+                               data-replaceId="#CustomerTableContainer"
+                               asp-controller="Customers"
+                               asp-action="GetCustomers"
+                               asp-route-page="@Model.Page"
+                               asp-route-orderByField="@nameof(CustomerSearch.Givenname)"
+                               asp-route-orderBy="@(Model.OrderByField != nameof(CustomerSearch.Givenname) ? OrderByType.Ascending : Model.OrderByType == OrderByType.Ascending ? OrderByType.Descending : OrderByType.None)">
+                                Given name
+                                @if (Model.OrderByField == nameof(CustomerSearch.Givenname) && Model.OrderByType == OrderByType.Ascending)
+                                {
+                                    <i class="fas fa-sort-up"></i>
+                                }
+                                else if (Model.OrderByField == nameof(CustomerSearch.Givenname) && Model.OrderByType == OrderByType.Descending)
+                                {
+                                    <i class="fas fa-sort-down"></i>
+                                }
+                            </a>
+                        </div>
+                        <div class="col-sm-3">
+                            <a class="nav-link httpOther"
+                               data-replaceId="#CustomerTableContainer"
+                               asp-controller="Customers"
+                               asp-action="GetCustomers"
+                               asp-route-page="@Model.Page"
+                               asp-route-orderByField="@nameof(CustomerSearch.Surname)"
+                               asp-route-orderBy="@(Model.OrderByField != nameof(CustomerSearch.Surname) ? OrderByType.Ascending : Model.OrderByType == OrderByType.Ascending ? OrderByType.Descending : OrderByType.None)">
+                                Surname
+                                @if (Model.OrderByField == nameof(CustomerSearch.Surname) && Model.OrderByType == OrderByType.Ascending)
+                                {
+                                    <i class="fas fa-sort-up"></i>
+                                }
+                                else if (Model.OrderByField == nameof(CustomerSearch.Surname) && Model.OrderByType == OrderByType.Descending)
+                                {
+                                    <i class="fas fa-sort-down"></i>
+                                }
+                            </a>
+                        </div>
+                        <div class="col-sm-3">
+                            <a class="nav-link httpOther"
+                               data-replaceId="#CustomerTableContainer"
+                               asp-controller="Customers"
+                               asp-action="GetCustomers"
+                               asp-route-page="@Model.Page"
+                               asp-route-orderByField="@nameof(CustomerSearch.City)"
+                               asp-route-orderBy="@(Model.OrderByField != nameof(CustomerSearch.City) ? OrderByType.Ascending : Model.OrderByType == OrderByType.Ascending ? OrderByType.Descending : OrderByType.None)">
+                                City
+                                @if (Model.OrderByField == nameof(CustomerSearch.City) && Model.OrderByType == OrderByType.Ascending)
+                                {
+                                    <i class="fas fa-sort-up"></i>
+                                }
+                                else if (Model.OrderByField == nameof(CustomerSearch.City) && Model.OrderByType == OrderByType.Descending)
+                                {
+                                    <i class="fas fa-sort-down"></i>
+                                }
+                            </a>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="customerTableBody">
+            @foreach (var result in Model.SearchData.ResultList.Results)
+            {
+                <tr class="card">
+                    <td class="card-header" id="@($"HeaderCustomerTable{result.Document.CustomerId}")">
+                        <a class="btn btn-link httpGet collapsed"
+                           asp-controller="Customers"
+                           asp-action="Index"
+                           asp-route-id="@result.Document.CustomerId"
+                           data-toggle="collapse"
+                           data-target="#@($"collapseCustomerTable{result.Document.CustomerId}")"
+                           aria-expanded="true"
+                           aria-controls="@($"collapseCustomerTable{result.Document.CustomerId}")"
+                           data-ajax="true"
+                           data-ajax-method="GET"
+                           data-ajax-mode="replace"
+                           data-ajax-update="#@($"loaderCustomerTable{result.Document.CustomerId}")"
+                           style="width: 100%">
+                            <div class="row">
+                                <div class="col-sm-1 m-0">
+                                    <div class="sb-sidenav-collapse-arrow">
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-11 m-0">
+                                    <h5 class="m-0 text-left">
+                                        @result.Document.Givenname - @result.Document.Surname,  @result.Document.City
+                                    </h5>
+                                </div>
+                            </div>
+                        </a>
+
+                    </td>
+
+
+                </tr>
+                <tr id="@($"collapseCustomerTable{result.Document.CustomerId}")"
+                    class="collapse"
+                    aria-labelledby="@($"HeaderCustomerTable{result.Document.CustomerId}")"
+                    data-parent="#accordionCustomerTable">
+                    <td>
+                        <div class="card-body">
+                            <div id="@($"loaderCustomerTable{result.Document.CustomerId}")">
+                                <i class="fas fa-circle-notch fa-spin"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item  @(Model.Page == 1 ? "disabled" : "")">
+                                <a class="page-link httpOther"
+                                   data-replaceId="#CustomerTableContainer"
+                                   asp-controller="Customers"
+                                   asp-action="GetCustomers"
+                                   asp-route-page="1"
+                                   asp-route-orderByField="@Model.OrderByField"
+                                   asp-route-orderBy="@Model.OrderByType">
+                                    First
+                                </a>
+                            </li>
+                            <li class="page-item @(Model.Page-1 == 0 ? "disabled" : "")">
+                                <a class="page-link httpOther"
+                                   data-replaceId="#CustomerTableContainer"
+                                   asp-controller="Customers"
+                                   asp-action="GetCustomers"
+                                   asp-route-page="@(Model.Page-1)"
+                                   asp-route-orderByField="@Model.OrderByField"
+                                   asp-route-orderBy="@Model.OrderByType">
+                                    Previous
+                                </a>
+                            </li>
+                            @for (var i = startForLoop; i <= endForLoop; i++)
+                            {
+                                <li class="page-item @(i == Model.Page ? "active" : "")">
+                                    <a class="page-link httpOther"
+                                       data-replaceId="#CustomerTableContainer"
+                                       asp-controller="Customers"
+                                       asp-action="GetCustomers"
+                                       asp-route-page="@i"
+                                       asp-route-orderByField="@Model.OrderByField"
+                                       asp-route-orderBy="@Model.OrderByType">
+                                        @i
+                                    </a>
+                                </li>
+                            }
+                            <li class="page-item  @(Model.Page+1 > Model.SearchData.PageCount ? "disabled" : "")">
+                                <a class="page-link httpSearch"
+                                   data-replaceId="#CustomerTableContainer"
+                                   asp-controller="Customers"
+                                   asp-action="GetCustomers"
+                                   asp-route-page="@(Model.Page+1)"
+                                   asp-route-orderByField="@Model.OrderByField"
+                                   asp-route-orderBy="@Model.OrderByType">
+                                    Next
+                                </a>
+                            </li>
+                            <li class="page-item  @(Model.SearchData.PageCount == Model.Page ? "disabled" : "")">
+                                <a class="page-link httpOther"
+                                   data-replaceId="#CustomerTableContainer"
+                                   asp-controller="Customers"
+                                   asp-action="GetCustomers"
+                                   asp-route-page="@Model.SearchData.PageCount"
+                                   asp-route-orderByField="@Model.OrderByField"
+                                   asp-route-orderBy="@Model.OrderByType">
+                                    Last
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

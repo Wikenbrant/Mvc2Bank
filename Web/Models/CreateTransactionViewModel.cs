@@ -13,6 +13,7 @@ namespace Web.Models
         [Required]
         public string Type { get; set; }
 
+        [Required]
         public string Operation { get; set; }
 
         [Required]
@@ -20,13 +21,10 @@ namespace Web.Models
 
         public string Symbol { get; set; }
 
-        [Required]
         [Display(Name = "To bank")]
         public string Bank { get; set; }
 
-        [Required]
-        [Range(1,int.MaxValue,ErrorMessage = "Put in a valid to account number")]
         [Display(Name = "To account")]
-        public int Account { get; set; }
+        public int? Account { get; set; }
     }
 }

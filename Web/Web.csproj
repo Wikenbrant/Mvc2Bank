@@ -30,9 +30,4 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\" />
-    <Folder Include="Views\Transactions\" />
-  </ItemGroup>
-
 </Project>

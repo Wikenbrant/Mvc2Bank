@@ -29,9 +29,28 @@
                                 </div>
                             </div>
                             <div class="col-sm-11 m-0">
-                                <h5 class="m-0 text-left">
-                                    @country.Country
-                                </h5>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h5 class="m-0 text-left">
+                                            @country.Country
+                                        </h5>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p>
+                                            Number of customers: @country.NumberOfCustomers
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p>
+                                            Number of accounts: @country.NumberOfAccounts
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p>
+                                            Total: @country.Total.ToString("C")
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -42,6 +61,7 @@
                  aria-labelledby="@($"HeaderCountry{country.Country}")" 
                  data-parent="#accordionCountries">
                 <div class="card-body">
+                    <h2>Top 10 in @country.Country</h2>
                     <div id="@($"loaderCountry{country.Country}")">
                         <i class="fas fa-circle-notch fa-spin"></i>
                     </div>
