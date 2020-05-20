@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
+using Domain.Entities;
 using Domain.SearchModels;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -83,6 +86,68 @@ namespace Infrastructure.Search
             model.PageRange = Math.Min(model.PageCount - leftMostPage, GlobalVariables.MaxPageRange);
 
             return model;
+        }
+
+        public Task CreateOrUpdateCustomers(params Customer[] customers)
+        {
+            var actions = customers
+                .Select(customer => new IndexAction<CustomerSearch>
+                {
+                    ActionType = IndexActionType.MergeOrUpload,
+                    Document = new CustomerSearch
+                    {
+                        CustomerId = customer.CustomerId.ToString(),
+                        Country = customer.Country,
+                        City = customer.City,
+                        Surname = customer.Surname,
+                        Givenname = customer.Givenname,
+                        Telephonenumber = customer.Telephonenumber,
+                        Gender = customer.Gender,
+                        CountryCode = customer.CountryCode,
+                        Zipcode = customer.Zipcode,
+                        Streetaddress = customer.Streetaddress,
+                        Emailaddress = customer.Emailaddress,
+                        NationalId = customer.NationalId,
+                        Telephonecountrycode = customer.Telephonecountrycode
+                    }
+                })
+                .ToList();
+
+            var batch = IndexBatch.New(actions);
+            _indexClient.Documents.Index(batch);
+
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteCustomers(params Customer[] customers)
+        {
+            var actions = customers
+                .Select(customer => new IndexAction<CustomerSearch>
+                {
+                    ActionType = IndexActionType.Delete,
+                    Document = new CustomerSearch
+                    {
+                        CustomerId = customer.CustomerId.ToString(),
+                        Country = customer.Country,
+                        City = customer.City,
+                        Surname = customer.Surname,
+                        Givenname = customer.Givenname,
+                        Telephonenumber = customer.Telephonenumber,
+                        Gender = customer.Gender,
+                        CountryCode = customer.CountryCode,
+                        Zipcode = customer.Zipcode,
+                        Streetaddress = customer.Streetaddress,
+                        Emailaddress = customer.Emailaddress,
+                        NationalId = customer.NationalId,
+                        Telephonecountrycode = customer.Telephonecountrycode
+                    }
+                })
+                .ToList();
+
+            var batch = IndexBatch.New(actions);
+            _indexClient.Documents.Index(batch);
+
+            return Task.CompletedTask;
         }
     }
 }

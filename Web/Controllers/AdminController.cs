@@ -28,7 +28,7 @@ namespace Web.Controllers
             return View(nameof(Users));
         }
 
-        public async Task<IActionResult> Users()
+        public IActionResult Users()
         {
             return View(new AdminViewModel());
         }

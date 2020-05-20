@@ -6,5 +6,7 @@ namespace Web.Models
     public class IndexViewModel
     {
         public NumberOfAccountsAndTotalSumForEachCountryViewModel Countries { get; set; }
+
+        public CreateCustomerViewModel CreateCustomerViewModel { get; set; }
     }
 }

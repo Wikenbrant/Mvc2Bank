@@ -1,7 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using Application.Customers.Queries.GetCountries;
+using Application.Customers.Queries.GetCountryCodes;
 using Application.Customers.Queries.GetCustomersPagination;
 using Application.Customers.Queries.GetCustomersPaginationOrderOn;
+using Application.Customers.Queries.GetGenders;
 using Application.Customers.Queries.GetTop10CustomersByCountry;
 using Application.Search.Query;
 using Application.Statistics.Query.GetNumberOfAccountsAndTotalSumForEachCountry;
@@ -31,7 +35,13 @@ namespace Web.Controllers
         {
             var model = new IndexViewModel
             {
-                Countries = await _mediator.Send(new GetNumberOfAccountsAndTotalSumForEachCountryQuery()).ConfigureAwait(false)
+                Countries = await _mediator.Send(new GetNumberOfAccountsAndTotalSumForEachCountryQuery()).ConfigureAwait(false),
+                CreateCustomerViewModel = new CreateCustomerViewModel
+                {
+                    Countries = (await _mediator.Send(new GetCountriesQuery()).ConfigureAwait(false)).ToList(),
+                    Genders = (await _mediator.Send(new GetGendersQuery()).ConfigureAwait(false)).ToList(),
+                    CountryCodes = (await _mediator.Send(new GetCountryCodesQuery()).ConfigureAwait(false)).ToList(),
+                }
             };
 
             return View(model);

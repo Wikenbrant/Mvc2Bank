@@ -115,7 +115,7 @@ $(function () {
                 $(this).toggleClass("active");
             });
 
-        $(document).on('submit', '.createTransactionForm',
+        $(document).on('submit', '.createForm',
             function (e) {
                 e.preventDefault();
                 var form = this;

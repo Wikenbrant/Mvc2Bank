@@ -1,0 +1,106 @@
+﻿@model CreateCustomerViewModel
+
+<div id="CreateCustomeraccordion" class="m-5">
+    <div class="card">
+        <div class="card-header" id="CreateCustomerHeading">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCreateCustomer" aria-expanded="true" aria-controls="collapseCreateCustomer">
+                    Create Customer
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseCreateCustomer" class="collapse" aria-labelledby="CreateCustomerHeading" data-parent="#CreateCustomeraccordion">
+            <div class="card-body">
+                <form asp-controller="Customers" asp-action="CreateCustomer" method="post" class="createForm">
+                    <ul class="errors text-danger"></ul>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="Surname"></label>
+                                <input class="form-control" asp-for="Surname" />
+                                <span asp-validation-for="Surname" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="Givenname"></label>
+                                <input class="form-control" asp-for="Givenname" />
+                                <span asp-validation-for="Givenname" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label asp-for="Genders"></label>
+                            <select class="form-control"
+                                    asp-for="Gender"
+                                    asp-items="@(new SelectList(Model.Genders))">
+                                <option disabled selected>Select gender</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="Emailaddress"></label>
+                                <input class="form-control" asp-for="Emailaddress" />
+                                <span asp-validation-for="Emailaddress" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="Country"></label>
+                                <select class="form-control"
+                                        asp-for="Country"
+                                        asp-items="@(new SelectList(Model.Countries))">
+                                    <option disabled selected>Select country</option>
+                                </select>
+                                <span asp-validation-for="Country" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="CountryCode"></label>
+                                <select class="form-control"
+                                        asp-for="Country"
+                                        asp-items="@(new SelectList(Model.CountryCodes))">
+                                    <option disabled selected>Select country code</option>
+                                </select>
+                                <span asp-validation-for="CountryCode" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="Telephonecountrycode"></label>
+                                <input class="form-control" asp-for="Telephonecountrycode" />
+                                <span asp-validation-for="Telephonecountrycode" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="Telephonenumber"></label>
+                                <input class="form-control" asp-for="Telephonenumber" />
+                                <span asp-validation-for="Telephonenumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <button class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

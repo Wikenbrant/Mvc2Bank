@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Customers.Queries.GetCustomer;
+using AutoMapper;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,13 +16,15 @@ namespace Web.Tests
     public class CustomerControllerTests
     {
         private Mock<IMediator> _mediator;
+        private Mock<IMapper> _mapper;
         private CustomersController _sut;
 
         [SetUp]
         public void Setup()
         {
             _mediator = new Mock<IMediator>();
-            _sut = new CustomersController();
+            _mapper = new Mock<IMapper>();
+            _sut = new CustomersController(_mediator.Object, _mapper.Object);
         }
 
         [Test]

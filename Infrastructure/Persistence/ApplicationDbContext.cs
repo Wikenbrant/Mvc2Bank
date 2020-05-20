@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Domain.Entities;
 using Infrastructure.Identity;
@@ -10,10 +13,12 @@ namespace Infrastructure.Persistence
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser> , IApplicationDbContext
     {
+        private readonly ISearchService _searchService;
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,ISearchService searchService)
             : base(options)
         {
+            _searchService = searchService;
         }
 
         public virtual DbSet<Account> Accounts { get; set; }
@@ -42,6 +47,29 @@ namespace Infrastructure.Persistence
             {
                 optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EFProviders.InMemory;Trusted_Connection=True;ConnectRetryCount=0");
             }
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+
+            var createdOrUpdated = ChangeTracker.Entries<Customer>()
+                .Where(e => e.Entity.GetType() == typeof(Customer) &&
+                            (e.State == EntityState.Added || e.State == EntityState.Modified))
+                .Select(e => e.Entity)
+                .ToArray();
+
+            await _searchService.CreateOrUpdateCustomers(createdOrUpdated).ConfigureAwait(false);
+
+
+            var deleted = ChangeTracker.Entries<Customer>()
+                .Where(e => e.Entity.GetType() == typeof(Customer) &&
+                            e.State == EntityState.Deleted)
+                .Select(e => e.Entity)
+                .ToArray();
+
+            await _searchService.DeleteCustomers(deleted).ConfigureAwait(false);
+
+            return await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
     }

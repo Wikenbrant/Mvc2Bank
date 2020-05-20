@@ -54,6 +54,7 @@ namespace Web
             {
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
+                logger.LogError(e,e.Message);
                 logger.LogError(e, "An error occurred while migrating or seeding the database.");
                 throw;
             }

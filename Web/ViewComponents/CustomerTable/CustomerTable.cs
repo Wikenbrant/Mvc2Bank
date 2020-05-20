@@ -16,14 +16,7 @@ namespace Web.ViewComponents.CustomerTable
         }
         public async Task<IViewComponentResult> InvokeAsync(SearchQuery query)
         {
-            var result = await _mediator.Send(query).ConfigureAwait(false);
-            var model = new CustomerTableViewModel
-            {
-                OrderByType = query.OrderByType,
-                OrderByField = query.OrderByField,
-                SearchData = result,
-                Page = query.Page
-            };
+            var model = await _mediator.Send(query).ConfigureAwait(false);
             return View(model);
         }
     }

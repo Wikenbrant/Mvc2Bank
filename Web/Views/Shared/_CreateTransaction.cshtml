@@ -2,7 +2,7 @@
 @model CreateTransactionViewModel
 
 
-<form asp-controller="Transactions" asp-action="CreateTransaction" method="post" class="createTransactionForm">
+<form asp-controller="Transactions" asp-action="CreateTransaction" method="post" class="createForm">
     <ul class="errors text-danger"></ul>
 
     <div class="row">
@@ -14,14 +14,14 @@
                         asp-items="new SelectList(Model.AccountIds)">
                     <option disabled selected>Select account</option>
                 </select>
-                <span asp-validation-for="Type"></span>
+                <span asp-validation-for="Type" class="text-danger"></span>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label asp-for="Amount"></label>
                 <input class="form-control" asp-for="Amount"/>
-                <span asp-validation-for="Amount"></span>
+                <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
         </div>
 
@@ -31,14 +31,14 @@
             <div class="form-group">
                 <label asp-for="Bank"></label>
                 <input class="form-control" asp-for="Bank"/>
-                <span asp-validation-for="Bank"></span>
+                <span asp-validation-for="Bank" class="text-danger"></span>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label asp-for="Account"></label>
                 <input class="form-control" asp-for="Account"/>
-                <span asp-validation-for="Account"></span>
+                <span asp-validation-for="Account" class="text-danger"></span>
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
     }).ToList()">
                     <option disabled selected>Select operation</option>
                 </select>
-                <span asp-validation-for="Type"></span>
+                <span asp-validation-for="Type" class="text-danger"></span>
             </div>
         </div>
         <div class="col-sm-6">
@@ -72,7 +72,7 @@
     }).ToList()">
                     <option disabled selected>Select operation</option>
                 </select>
-                <span asp-validation-for="Operation"></span>
+                <span asp-validation-for="Operation" class="text-danger"></span>
             </div>
         </div>
 
@@ -91,7 +91,7 @@
     }).ToList()">
                     <option disabled selected value="">Select symbol</option>
                 </select>
-                <span asp-validation-for="Symbol"></span>
+                <span asp-validation-for="Symbol" class="text-danger"></span>
             </div>
         </div>
         <div class="col-sm-6">

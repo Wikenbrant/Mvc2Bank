@@ -21,7 +21,6 @@
   <ItemGroup>
     <Folder Include="Cards\Commands\" />
     <Folder Include="Cards\Queries\" />
-    <Folder Include="Customers\Commands\" />
     <Folder Include="Dispositions\Commands\" />
     <Folder Include="Dispositions\Queries\" />
     <Folder Include="Loans\Commands\" />
