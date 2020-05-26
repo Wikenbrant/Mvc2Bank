@@ -13,12 +13,10 @@ namespace BankMoneyLaunderer.MoneyLaundryRepository
     public class Repository : IRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
 
-        public Repository(ApplicationDbContext context, IMapper mapper)
+        public Repository(ApplicationDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
         public async Task<IEnumerable<string>> GetCountriesAsync() =>
             await _context.Customers

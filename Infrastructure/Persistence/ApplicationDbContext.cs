@@ -51,24 +51,26 @@ namespace Infrastructure.Persistence
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
+            if (!Database.IsInMemory())
+            {
+                var createdOrUpdated = ChangeTracker.Entries<Customer>()
+                    .Where(e => e.Entity is Customer &&
+                                (e.State == EntityState.Added || e.State == EntityState.Modified))
+                    .Select(e => e.Entity)
+                    .ToArray();
 
-            var createdOrUpdated = ChangeTracker.Entries<Customer>()
-                .Where(e => e.Entity.GetType() == typeof(Customer) &&
-                            (e.State == EntityState.Added || e.State == EntityState.Modified))
-                .Select(e => e.Entity)
-                .ToArray();
-
-            await _searchService.CreateOrUpdateCustomers(createdOrUpdated).ConfigureAwait(false);
+                await _searchService.CreateOrUpdateCustomers(createdOrUpdated).ConfigureAwait(false);
 
 
-            var deleted = ChangeTracker.Entries<Customer>()
-                .Where(e => e.Entity.GetType() == typeof(Customer) &&
-                            e.State == EntityState.Deleted)
-                .Select(e => e.Entity)
-                .ToArray();
+                var deleted = ChangeTracker.Entries<Customer>()
+                    .Where(e => e.Entity is Customer &&
+                                e.State == EntityState.Deleted)
+                    .Select(e => e.Entity)
+                    .ToArray();
 
-            await _searchService.DeleteCustomers(deleted).ConfigureAwait(false);
-
+                await _searchService.DeleteCustomers(deleted).ConfigureAwait(false);
+            }
+            
             return await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 

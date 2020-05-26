@@ -29,7 +29,6 @@ namespace Application.Test.Transactions.Commands
             var model = await SendAsync(new GetTransactionsByAccountIdQuery{Id = accountId});
 
             model.Transactions.Should().HaveCount(1);
-
         }
         [Test]
         public async Task ShouldFailCreateTransaction()

@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using BankMoneyLaunderer;
+using BankMoneyLaunderer.MoneyLaundryRepository;
 using BankMoneyLaunderer.MoneyLaundryStrategy;
 using Infrastructure.Persistence;
 
@@ -41,9 +42,9 @@ public class Testing
 
     }
 
-    public static IMapper GetMapper()
+    public static IRepository GetRepository()
     {
-        return _provider.GetRequiredService<IMapper>();
+        return _provider.GetRequiredService<IRepository>();
     }
 
     public static ApplicationDbContext GetContext()

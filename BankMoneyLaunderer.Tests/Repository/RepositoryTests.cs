@@ -51,14 +51,12 @@ namespace BankMoneyLaunderer.Tests.Repository
                     }
                 }
             });
-            var repository = new MoneyLaundryRepository.Repository(GetContext(), GetMapper());
+            var repository = GetRepository();
 
             var report = await repository.GetCustomersTransactionsOverXAmountAsync(DateTime.Today, "Sweden",
                 MoneyLaundryConfig.MaximumSingelTransactionAmount);
-
             report.Should().NotBeEmpty();
             customer.CustomerId.Should().Be(report.FirstOrDefault().CustomerId);
-            
         }
 
         [Test]
@@ -95,7 +93,7 @@ namespace BankMoneyLaunderer.Tests.Repository
                     }
                 }
             });
-            var repository = new MoneyLaundryRepository.Repository(GetContext(), GetMapper());
+            var repository = GetRepository();
 
             var report = await repository.GetCustomersTransactionsOverXAmountAsync(DateTime.Today.AddDays(-1), "Sweden",
                 MoneyLaundryConfig.MaximumSingelTransactionAmount);
@@ -150,7 +148,7 @@ namespace BankMoneyLaunderer.Tests.Repository
                     }
                 }
             });
-            var repository = new MoneyLaundryRepository.Repository(GetContext(), GetMapper());
+            var repository = GetRepository();
 
             var report = await repository.GetCustomersTransactionsOverXAmountLastXHoursAsync(DateTime.Today.AddDays(-1), "Sweden",
                 MoneyLaundryConfig.MaximumXHoursTotalAmount,MoneyLaundryConfig.XHours);
@@ -199,7 +197,7 @@ namespace BankMoneyLaunderer.Tests.Repository
                     }
                 }
             });
-            var repository = new MoneyLaundryRepository.Repository(GetContext(), GetMapper());
+            var repository = GetRepository();
 
             var report = await repository.GetCustomersTransactionsOverXAmountLastXHoursAsync(DateTime.Today, "Sweden",
                 MoneyLaundryConfig.MaximumXHoursTotalAmount, MoneyLaundryConfig.XHours);

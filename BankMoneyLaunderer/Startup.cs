@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Application.Common.Interfaces;
 using AutoMapper;
 using BankMoneyLaunderer.MoneyLaundryRepository;
 using BankMoneyLaunderer.MoneyLaundryStrategy;
@@ -42,6 +43,8 @@ namespace BankMoneyLaunderer
                         _configuration.GetConnectionString("Default"),
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             }
+
+            services.AddTransient<ISearchService, FakeSearchService>();
 
             services.AddTransient<IRepository, MoneyLaundryRepository.Repository>();
 

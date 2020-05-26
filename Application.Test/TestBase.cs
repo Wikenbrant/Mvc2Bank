@@ -7,9 +7,9 @@ namespace Application.Test
     public abstract class TestBase
     {
         [SetUp]
-        public async Task TestSetUp()
+        public Task TestSetUp()
         {
-           await  ResetStateAsync();
+           return ResetStateAsync();
         }
     }
 }

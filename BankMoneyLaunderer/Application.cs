@@ -60,7 +60,7 @@ namespace BankMoneyLaunderer
         {
             var from = new List<EmailAddress>
             {
-                new EmailAddress{Name = "TheMoneyLaunderer",Address = _emailConfiguration.EmailAddress}
+                new EmailAddress{Name = "The Money Launderer",Address = _emailConfiguration.EmailAddress}
             };
             var to = new List<EmailAddress>
             {

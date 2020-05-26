@@ -36,22 +36,4 @@
     <ProjectReference Include="..\Web\Web.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Loans\Commands\" />
-    <Folder Include="Loans\Queries\" />
-    <Folder Include="Accounts\Commands\" />
-    <Folder Include="Accounts\Queries\" />
-    <Folder Include="Common\" />
-    <Folder Include="Statistics\Commands\" />
-    <Folder Include="Statistics\Queries\" />
-    <Folder Include="PermenentOrders\Commands\" />
-    <Folder Include="PermenentOrders\Queries\" />
-    <Folder Include="Cards\Commands\" />
-    <Folder Include="Cards\Queries\" />
-    <Folder Include="Dispositions\Commands\" />
-    <Folder Include="Dispositions\Queries\" />
-    <Folder Include="Customers\Commands\" />
-    <Folder Include="Customers\Queries\" />
-  </ItemGroup>
-
 </Project>
